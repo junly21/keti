@@ -1,0 +1,24 @@
+@import '../../../../../_assets/scss/components/_button'; // %btn
+
+button {
+    @at-root .lnb & {
+        $font: $font-sm;
+
+        @extend %btn-set;
+
+        font-size: em($font);
+        padding: 0 em(1, $font);
+        height: em(3, $font);
+
+        &:not(#{$btn--actives}) {
+            color: rgba(#6cbaf1, .1);
+            background-color: rgba(#6cbaf1, .1);
+
+        }
+        &#{$btn--actives} {
+            color: color('white');
+            border: 1px solid #0076c9;
+            background-color: rgba(0, 118, 201, 0.1);
+        }
+    }
+}

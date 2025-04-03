@@ -1,0 +1,1828 @@
+@import '../../../../../_assets/scss/containers/_dashboard'; // %dashboard
+
+$breakpoint: 'xs';
+
+// 컨테이너
+$padding: 1.6;
+$containerTitleFont: $font-lg;
+
+// 더보기
+$listLinkFont: $font-md;
+$icoWidth: 1.4;
+$icoHeight: 1.4;
+
+$summaryPaddingTop: 4.4;
+$summaryHeight: 5.6;
+
+// 차트
+$chart1Width: 17;
+
+$dashboard-font-vw: 143 ;
+$dashboard-grid-width: 42 ;
+$dashboard-grid-height: 13 ;
+$dashboard-gap: 2.8 ;
+$dashboard-col: 4 ;
+$dashboard-interval-verticals: $content-interval-top+$content-interval-bottom+4.8 ; // 4.8 -> datetime
+$dashboard-min-ratio-horizontal: 16 ;
+$dashboard-min-ratio-vertical: 9 ;
+
+%summaryBase {
+
+    .total {
+        $percentageWidth: 9;
+
+        %percentagePosition {
+            position: absolute;
+            top: 0;
+        }
+
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+        padding-top: em($summaryPaddingTop);
+        position: relative;
+        height: em($summaryPaddingTop + $summaryHeight);
+
+        &>* {
+            width: 33.33%;
+            text-align: center;
+        }
+
+        dt {
+            font-size: em($font-sm);
+            color: color('gray');
+
+            &+dd {
+                $divLineHeight: 1;
+
+                font-size: em($font-xl-l);
+                // font-weight: bold;
+
+                &:not(:first-of-type) {
+                    position: relative;
+
+                    &::before {
+                        content: '';
+                        display: block;
+                        width: 1px;
+                        height: em($divLineHeight);
+                        background-color: color('white');
+
+                        position: absolute;
+                        top: calc(50% - #{em($divLineHeight / 2)});
+                        left: 0;
+                    }
+                }
+            }
+        }
+
+        .percentage {
+            @extend %percentagePosition;
+            right: 13%;
+
+            &+dd {
+                @extend %percentagePosition;
+                right: 0;
+            }
+        }
+    }
+
+}
+
+%container {
+    @extend %containerBase;
+
+    &Title {
+
+        h3 {
+
+            // @extend %ellipsis-base;
+
+            font-size: em($containerTitleFont);
+            line-height: $base-title-lineHeight;
+            font-weight: normal;
+            margin-bottom: em($padding, $containerTitleFont);
+            color: color('point');
+
+            @include mq($from: $breakpoint) {
+                padding-right: em($listLinkFont * 5, $containerTitleFont);
+            }
+
+            @include mq($until: $breakpoint) {
+                padding-right: em($icoWidth + .5, $containerTitleFont);
+            }
+
+
+        }
+
+    }
+
+    &Base {
+        padding: em($padding);
+        position: relative;
+        border: 1px solid color('point');
+        color: rgba(color('white'), .7);
+
+        @extend %containerTitle;
+    }
+
+    &GridNormal {
+        position: relative;
+        grid-column: auto/span 1;
+        grid-row: auto/span 1;
+    }
+
+    &Inner {
+        @extend %containerInnerBg;
+
+        padding: em($padding);
+
+        &Bg {
+            background-color: rgba(color('black'), .2);
+        }
+    }
+
+    &Opacity {
+        position: relative;
+        padding: em($padding);
+
+        h3 {
+            color: color('point');
+
+            &~div {
+
+                &:not(.dashboard__group__btn) {
+                    @extend %containerInner;
+                }
+            }
+        }
+
+        &01 {
+            @extend %containerTitle;
+            background: color('opacityblack2');
+        }
+
+        &02 {
+            @extend %containerTitle;
+            @extend %containerOpacity;
+            background: color('opacityblack3');
+
+            h3 {
+                color: color('point');
+            }
+        }
+    }
+
+    &Chart {
+        @extend %flex--col-between;
+        @extend %containerOpacity02;
+
+        h3+* {
+            @extend %nodata-ico;
+            // @extend %nodata-loading;
+            flex: 1;
+        }
+
+        canvas {
+            height: 100% !important;
+        }
+    }
+}
+
+%ico {
+    &-state {
+        $state: #{&};
+
+        &-set {
+            span {
+                color: color('trans') !important;
+            }
+        }
+
+        &-ox {
+            @extend #{$state}-set;
+            @extend #{$state}-empty;
+
+            span {
+                background: url('') center no-repeat;
+                background-size: auto max(100%, 1em);
+                display: inline-block;
+
+                &.success {
+                    background-image: image('ico_on.svg');
+                }
+
+                &.danger {
+                    background-image: image('ico_off.svg');
+                }
+            }
+        }
+
+        &-updown {
+            $updown: #{&};
+            @extend #{$updown}-base;
+
+            &-set {
+                @extend #{$state}-set;
+                @extend #{$state}-empty;
+
+                $icos: ('success': 'up',
+                        'danger': 'down'
+                    );
+
+                $successIco: image('ico_up.svg');
+                $dangerIco: image('ico_down.svg');
+
+                align-items: center;
+
+                span {
+                    width: em(1.4, $table-td-font);
+                    min-width: em(1.4, $table-td-font);
+                    height: em(1.4, $table-td-font);
+                    background-size: contain;
+                    overflow: hidden;
+                }
+
+                @each $key,
+                $value in $icos {
+                    &.#{$key} {
+                        span {
+                            background-image: image('ico_#{$value}.svg');
+                        }
+                    }
+
+                    .#{$key} {
+                        background-image: image('ico_#{$value}.svg');
+                    }
+                }
+            }
+
+            &-base {
+                @extend #{$updown}-set;
+                // @extend %flex--row-reverse;
+                display: flex;
+                gap: em(.8);
+            }
+
+            &-inTable {
+                @extend #{$updown}-set;
+
+                span {
+                    display: inline-block;
+                    overflow: hidden;
+                    margin-left: .3em;
+                }
+            }
+        }
+
+        &-connect {
+            @extend #{$state}-set;
+            @extend #{$state}-empty;
+
+            span {
+                background: url('') center no-repeat;
+                background-size: auto max(100%, 1em);
+                display: inline-block;
+
+                &.success {
+                    background-image: image('ico_connected.svg');
+                }
+
+                &.danger {
+                    background-image: image('ico_disconnected.svg');
+                }
+            }
+        }
+
+        &-empty {
+            &:empty {
+                $lineWidth: 1.5;
+                $lineHeightPx: 2px;
+
+                position: relative;
+
+                &::before {
+                    content: '';
+                    width: em($lineWidth);
+                    height: $lineHeightPx;
+                    position: absolute;
+                    top: calc(50% - #{$lineHeightPx / 2});
+                    left: calc(50% - #{em($lineWidth / 2)});
+                    background-color: color('white');
+                    border-radius: $lineHeightPx / 2;
+                }
+            }
+        }
+    }
+}
+
+// layout
+.dashboard {
+    $this: #{&}; // .dashboard 
+    $cont: 'container';
+    $wrap: 'wrapper';
+    $thisCont: $this+'__'+$cont; // .dashboard__container
+
+    // $containerWidth: calc((100% - #{em($dashboard-gap * ($dashboard-col - 1))}) / #{$dashboard-col});
+    // $containerWidthMin: px((($inner-min / 10) - ($padding-horizontal * 2) - ($dashboard-gap * ($dashboard-col - 1))) / $dashboard-col);
+    $containerWidthMin: 40vh; // 임시
+    $containerWidth: max(calc(((100vw - (#{map-get($inner-paddings, 'normal')} * 2)) - #{em($dashboard-gap * ($dashboard-col - 1))}) / #{$dashboard-col}), #{$containerWidthMin});
+
+    $dashboard-type1-cols: 2;
+    $dashboard-type1-col1: 3;
+    $dashboard-type1-col2: $dashboard-col - $dashboard-type1-col1;
+
+    $dashboard-type2-cols: 2;
+    $dashboard-type2-col1: 2;
+    $dashboard-type2-col2: $dashboard-type1-col1 - $dashboard-type2-col1;
+
+    %interval {
+        &-bottom {
+            &:not(:last-child) {
+                margin-bottom: em($dashboard-gap);
+            }
+        }
+    }
+
+    min-width: calc(#{$dashboard-min-ratio-horizontal / $dashboard-min-ratio-vertical * 100vh} - (max(3.75em, 3.125vw) * 2));
+
+    @extend %dashboard-grid;
+
+    img {
+        max-width: 100%;
+    }
+
+    article {
+
+        &:not([class]) {
+
+            @extend %containerGridNormal;
+        }
+    }
+
+    &__#{$cont} {
+
+        @at-root [class^=#{str-slice('#{&}',2)}--type] {
+ // @extend %containerBase;
+    }
+
+    @at-root .#{$cont}__inner {
+        @extend %containerInner;
+    }
+
+    // 비정상상황 발생 건수
+    &--type01 {
+        @extend %containerBase;
+        @extend %flex--col-between;
+
+        grid-column: auto/span 2;
+        grid-row: auto/span 4;
+
+        .#{$cont}__inner {
+            @extend %flex--col;
+            justify-content: center;
+
+            flex: 1;
+        }
+
+        .chart-01 {
+            @extend %flex--col-between;
+            @extend %interval-bottom;
+
+            align-items: center;
+
+            height: 100%;
+
+            canvas {
+                max-width: 35vh;
+                max-height: 35vh;
+            }
+        }
+
+        table {
+
+            border-bottom-color: color('borderopacity');
+
+            th {
+                $font: $font-md;
+                font-size: em($font);
+                height: em(3.7, $font);
+                border-bottom-color: color('borderopacity');
+                border-top: 1px solid color('borderopacity');
+                background-color: rgba(color('bgblue'), .3);
+                color: color('point');
+            }
+
+            td {
+                $font: $font-md;
+                font-size: em($font);
+                // color: rgba(color('white'), .7);
+                @extend %ico-state-updown-inTable;
+            }
+
+            tr {
+                &:not(:last-child) {
+                    td {
+                        border-bottom-color: color('borderopacity');
+                    }
+                }
+            }
+        }
+    }
+
+    &--type08 {
+        @extend %containerBase;
+        @extend %flex--col-between;
+
+        @extend %nodata;
+
+        .nodata {
+            position: relative;
+            height: 100%;
+        }
+
+        grid-column: auto/span 2;
+        grid-row: auto/span 1;
+
+        details {            
+            z-index: get-zIndex('absolute') + 1; // 220804 교통관제 하단 비정상상황 이벤트 nodata 영역 겹침으로 +1 추가
+
+            summary {
+                padding-right: 0;
+    
+                div {
+                    &:first-child {
+                        display: flex;
+                        gap: em(1.8);
+                        border: 1px solid color('point');
+                        background: linear-gradient(to bottom, rgba(28, 214, 243, 0.16), rgba(0, 0, 0, 0.16) 78%, rgba(28, 214, 243, 0.16));
+                    }
+    
+                    &:last-child {
+                        @extend %containerInnerBg;
+                    }
+                }
+    
+                & + * {
+                    @extend %scroll-bar-normal; 
+
+                    position: absolute;
+                    width: calc(100% - #{em(1.6 * 2)});
+                    background-color: #092148;
+                    border: 1px solid color('point');
+                    margin-top: .3em;
+
+                    max-height: 8.5em;
+                    overflow-y: auto;
+                }
+            }
+
+            button {
+                font-size: inherit;
+                color: inherit;
+                letter-spacing: inherit;
+                width: 100%;
+            }
+
+            &[open] {
+                summary + * {
+                    animation-name: sweep-y;
+                }
+            }
+        }
+
+        dl {
+            @extend %flex--row-between;
+            flex-wrap: nowrap;
+            gap: min-em-vh(1.6);
+
+            dt {
+                @extend %sr-only;
+            }
+
+            div {
+                @extend %flex--row-between;
+                @extend %font-r;
+
+                flex-wrap: nowrap;
+                align-items: center;
+                gap: min-em-vw($padding);
+                padding: em(.8) em(1.6);
+
+                &:first-child {
+                    width: em(16.4);
+                    color: color('point');
+
+                    &::before {
+                        content: '';
+                        width: em(2.8);
+                        height: em(2.8);
+                        background: image('') center no-repeat;
+                        background-size: contain;
+                    }
+                }
+
+                &:last-child {
+                    flex: 1;
+                    color: color('white');
+                }
+            }
+            
+            $situations: 'notax', 'wanted', 'warning', 'seize';
+
+            @each $situation in $situations {
+                .#{$situation} {
+                    &::before {
+                        background-image: image('ico_#{$situation}.svg')!important;
+                    }
+                }
+            }
+        }
+    }
+
+    // &--type08 {
+
+    //     @extend %containerBase;
+    //     @extend %flex--col-between;
+
+    //     grid-column: auto/span 2;
+    //     grid-row: auto/span 2;
+    // }
+
+    // 관제영상
+    &--type02 {
+
+        grid-column: auto/span 4;
+        grid-row: auto/span 4;
+
+        position: relative;
+
+        h3 {
+            @extend %sr-only;
+        }
+
+        [role=tabpanel] {
+            @extend %flex--col-between;
+
+            height: 100%;
+
+            h4 {
+                @extend %flex--row-around;
+
+                $font: 2.6;
+                font-weight: normal;
+                text-align: center;
+                color: color('point');
+
+                margin-bottom: em($padding);
+
+                span {
+                    @extend %ellipsis-base;
+                    width: auto;
+                    max-width: 60%;
+
+                    font-size: em($font);
+                }
+
+                &::before {
+                    content: '';
+                    flex: 1;
+                    background: image('ico_title_section_dashboard.png') right em(5.2) center no-repeat,
+                    linear-gradient(to bottom, transparent 0%, transparent calc(50% - #{em(.1)}), color('point') calc(50% - #{em(.1)}), color('point') calc(50% + #{em(.05)}), transparent calc(50% + #{em(.05)}), transparent 100%) right em(7) center no-repeat;
+                    background-size: auto 100%, 100%;
+                }
+
+                &::after {
+                    content: '';
+                    flex: 1;
+                    background: image('ico_title_section_dashboard.png') left em(5.2) center no-repeat,
+                    linear-gradient(to bottom, transparent 0%, transparent calc(50% - #{em(.1)}), color('point') calc(50% - #{em(.1)}), color('point') calc(50% + #{em(.05)}), transparent calc(50% + #{em(.05)}), transparent 100%) left em(7) center no-repeat;
+                    background-size: auto 100%, 100%;
+                }
+            }
+
+            .video-box {
+                flex: 1;
+                position: relative;
+                background-color: color('opacityblack3');
+                overflow: hidden;
+
+                video {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    -webkit-transform: translate(-50%, -50%);
+                    -ms-transform: translate(-50%, -50%);
+                    height: 100%;
+                }
+            }
+
+            @each $attr in $base-hiddens {
+                &#{$attr} {
+                    @extend %sr-only;
+                }
+            }
+        }
+
+        [role=tablist] {
+            $gap: 1;
+            $maxLength: 10;
+
+            @extend %ol-set;
+
+            width: calc(100% - #{em($padding * 2)});
+
+            display: flex;
+            flex-wrap: wrap-reverse;
+            gap: em($gap);
+            // 220804 grid에는 flex의 wrap-reverse 기능이 없어 flex로 교체
+            // display: grid;
+            // grid-template-columns: repeat(auto-fit, minmax(em(8), 1fr));
+            // grid-template-rows: 1;
+
+            position: absolute;
+            bottom: em($padding);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: get-zIndex('absolute');
+                // flex-grow: 1;
+            a {
+                counter-increment: num;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                // flex-grow: 1;
+                background: rgba(color('black'), .56);
+                border-radius: em(.4);
+                height: em(2.8);
+                color: color('point');
+                transition: $base-transition;
+
+                span {
+                    @extend %sr-only;
+                }
+
+                &::before {
+                    content: counter(num);
+                }
+
+                @each $attr in $tab--actives {
+
+                    &#{$attr} {
+                        color: #2b384e;
+                        background: color('point');
+                    }
+                }
+            }
+
+            &.under-10 {
+                a {
+                    flex: 1;
+                }
+            }
+
+            &:not(.under-10) {
+
+                a {
+                    width: calc(calc(100% - #{em($gap * ($maxLength - 1))}) / #{$maxLength});
+                }
+
+                &:not(:hover):not(:focus-within) {
+                    a {
+
+                        &:nth-child(10) {
+                            &::before {
+                                content: '...';
+                            }
+                        }
+                    }
+                }
+            }
+
+            &:not(:hover):not(:focus-within) {
+                a {
+
+                    &:nth-child(10) {
+
+                        & ~ a {
+                                opacity: 0;
+                        }
+                    }
+
+                    $chkNum: 0;
+
+                    $set1: '';
+        
+                    @each $attr in $tab--actives {
+
+                        $chkNum: $chkNum + 1;
+                        
+                        $set1: $set1 + ':not(#{$attr})';
+        
+                        $set2: '';
+
+                        @if $chkNum == length($tab--actives) {
+        
+                            @for $i from 1 through 9 { 
+                                $set2: $set2 + ':nth-child(#{$i})#{$set1}+';
+            
+                                @if $i == 9 {
+            
+                                    &#{$set2} :nth-child(10) {
+                                        color: #2b384e;
+                                        background: color('point');
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }   
+            }
+        }
+
+        &-01 {
+            height: 100%;
+        }
+    }
+
+    // 요약정보
+    &--type03 {
+        @extend %containerBase;
+
+        grid-column: auto/span 2;
+        grid-row: auto/span 4;
+
+        h3 {
+            @extend %sr-only;
+        }
+
+        dl {
+            @extend %flex--col-between;
+
+            height: 100%;
+
+            dt {
+                color: color('point');
+            }
+
+            dd {
+                strong {
+                    @extend %font-b;
+
+                    font-size: em($font-xl-l);
+                    color: color('point');
+                    margin-right: .2em;
+                }
+
+                &>span {
+                    @extend %flex;
+
+                    align-items: center;
+                    margin-right: em(1.5);
+                }
+            }
+
+            &>div {
+                &:not(:last-child) {
+                    margin-bottom: .5em;
+                }
+            }
+        }
+
+        em {
+            @extend %ico-state-updown;
+
+            font-style: normal;
+        }
+
+        // 차량통행, 교통사고
+        &-01 {
+            $set: #{&};
+            $icoRadius: 6.8;
+            $icoInterval: 3.2;
+
+            @extend %flex--row;
+
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(color('black'), .16), rgba(color('black'), .16)) left em($icoRadius + ($icoInterval / 2)) center no-repeat;
+
+            dd {
+                @extend %flex--row;
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                flex: 1;
+                padding: 0 em($padding);
+
+                margin-left: auto;
+            }
+
+            &::before {
+
+                content: '';
+                min-width: em($icoRadius);
+                height: em($icoRadius);
+                border: 1px solid color('point');
+                border-radius: 50%;
+                background: image('') center no-repeat color('dimmed');
+                margin-right: em($icoInterval);
+                background-size: 80%;
+            }
+
+            &-01 {
+                @extend #{$set};
+
+                &::before {
+                    background-image: image('ico_car_normal.png');
+                }
+            }
+
+            &-02 {
+                @extend #{$set};
+
+                &::before {
+                    background-image: image('ico_car_accident.png');
+                }
+            }
+        }
+
+        // 평균속도
+        &-02 {
+            @extend %flex--col-between;
+
+            dt {
+                font-size: em($font-lg);
+                margin-bottom: em($padding, $font-lg);
+            }
+
+            dd {
+                flex: 1;
+            }
+
+            figure {
+                $figWidth: 6;
+                $figInterval: 1;
+
+                @extend %containerInner;
+                // @extend %flex--row-between; // 상무님 지시로 수정 210804
+
+                position: relative;
+                height: 100%;
+
+                figcaption {
+                    text-align: right;
+                    width: em($figWidth);
+                    // flex: 1;
+
+                    // 상무님 지시로 추가 210804
+                    position: absolute;
+                    top: em($padding);
+                    right: em($padding);
+                }
+
+                .gauge {
+                    // width: calc(100% - #{em($figWidth + $figInterval)}); // 상무님 지시로 수정 210804
+                    width: 100%;
+                    height: 100%;
+                    margin: 0 auto;
+                    max-width: 28vh;
+                    min-height: 15vh;
+                }
+            }
+
+            meter {
+                -webkit-appearance: none;
+            }
+        }
+
+        // 평균대기
+        &-03 {
+            dt {
+                margin-bottom: em(1);
+            }
+
+            dd {
+                @extend %containerInner;
+                @extend %flex--row-between;
+
+                .percentage {
+                    position: relative;
+                    width: 100%;
+                    height: em(1.5);
+                    margin-top: em(.5);
+
+
+                    &::-webkit-meter {
+                        &-bar {
+                            background: color('opacityblack1');
+                            border: none;
+                            border-radius: 0;
+                        }
+
+                        &-optimum-value {
+                            transition: $base-transition;
+                            // border: none;
+                            background: linear-gradient(to right, color('gradientbluestart'), color('gradientblueend'));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // 비정상 이벤트 현황
+    &--type04 {
+        $icoWidth: 5;
+        $icoHeight: 5;
+        $icoInterval: 3.2;
+
+        $situations: 'info', 'warning', 'danger', 'emergency';
+
+        @extend %flex--col-between;
+        @extend %containerBase;
+        // @extend %containerOpacity02;
+
+        @extend %nodata;
+
+        .nodata {
+            position: relative;
+            height: 100%;
+        }
+
+        grid-column: auto/span 2;
+        grid-row: auto/span 3;
+
+        padding: em($padding);
+
+        ol {
+            $maxRow: 4;
+
+            flex: 1;
+            // overflow: hidden;
+
+            li {
+
+                flex: 1;
+                height: 25%;
+
+                color: inherit;
+
+                a {
+                    @extend %flex--row-between;
+
+                    height: 100%;
+                    align-items: center;
+                    // padding: em(1.2) em($padding) em(1.2) em($icoInterval);
+                    padding: em(.4) em($padding) em(.4) em($icoInterval);
+                    gap: em($icoInterval);
+
+                    &::before {
+                        content: '';
+                        width: em($icoWidth);
+                        height: em($icoHeight);
+                        background: image('') center no-repeat;
+                        background-size: 100%;
+                    }
+                }
+
+                &.emergency {
+                    animation: alert 1s ease-in-out infinite;
+                }
+
+                &:nth-child(-n+#{$maxRow}) {
+                    // &:not(:last-child) { 
+                        border-bottom: 1px solid color('borderblack');
+                    // }
+                }
+
+                @each $value in $situations {
+                    &.#{$value} {
+
+                        a {
+                            &::before {
+                                background-image: image('ico_event_#{$value}.svg');
+                            }
+                        }
+                    }
+                }
+
+                &:not(.nodata) {
+                    background: rgba(color('bgblue'), .3);
+                }
+            }
+        }
+
+        dl {
+
+            flex: 1;
+            overflow: hidden;
+
+            color: color('gray');
+
+            dt {
+                @extend %sr-only;
+            }
+
+            dd {
+                &:first-of-type {
+                    float: left;
+                }
+
+                &:not(:last-of-type) {
+                    margin-bottom: .2em;
+                }
+            }
+        }
+
+        .state {
+            font-size: em($font-lg);
+
+            margin-right: .3em;
+
+            &::before {
+                content: '[';
+            }
+
+            &::after {
+                content: ']';
+            }
+        }
+
+        .situation {
+            color: color('point');
+
+            @extend %ellipsis-base;
+        }
+
+        .date {
+            font-size: em($font-lg);
+
+            @extend %ellipsis-base;
+        }
+
+        .location {
+            @extend %ellipsis-base;
+        }
+    }
+
+    // 차선별 교통정보
+    &--type05 {
+        @extend %containerChart;
+
+        grid-column: auto/span 4;
+        grid-row: auto/span 2;
+
+        h3 {
+            & + div {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        &-01 {
+            display: flex;
+            width: 100%;
+            max-height: 100%;
+
+            border-left: 4px solid #d1deef;
+            border-right: 4px solid #d1deef;
+
+            &>div {
+                @extend %flex--col-reverse;
+                position: relative;
+                align-items: center;
+                text-align: center;
+                max-height: 100%;
+                flex: 1;
+
+                &:not(:last-child) {
+                    position: relative;
+
+                    &::after {
+                        content: '';
+                        display: block;
+                        width: 4px;
+                        height: 100%;
+
+                        position: absolute;
+                        top: 0;
+                        right: -2px;
+                        background-image: linear-gradient(to bottom, #d1deef 0%, #d1deef 11%, transparent 11%, transparent 22%, #d1deef 22%, #d1deef 33%, transparent 33%, transparent 44%, #d1deef 44%, #d1deef 55%, transparent 55%, transparent 66%, #d1deef 66%, #d1deef 77%, transparent 77%, transparent 88%, #d1deef 88%);
+                    }
+                }
+            }
+
+            dt {
+                @extend %font-m;
+                // position: absolute;
+                // bottom: 0;
+                // right: 50%;
+                // transform: translateX(50%);
+            }
+
+            dd[class^=chart-line-] {
+                // width: 100%;
+                // max-height: 100%;
+            }
+        }
+    }
+
+    // 시간대별 교통량
+    &--type06 {
+        @extend %containerChart;
+
+        grid-column: auto/span 4;
+        grid-row: auto/span 2;
+    }
+
+    &--type07 {
+        @extend %containerChart;
+
+        grid-column: auto/span 3;
+        grid-row: auto/span 2;
+    }
+
+    // 교통 연계 정보
+    &--type09 {
+
+
+        @extend %flex--col;
+        @extend %containerOpacity02;
+
+        grid-column: auto/span 2;
+        grid-row: auto/span 4;
+
+        padding: em($padding);
+
+        h4 {
+            font-size: em($font-sm);
+            flex: 1;
+            order: 0;
+        }
+
+        dl {
+            $font: $font-xs;
+
+            @extend %flex;
+
+            justify-content: flex-end;
+            color: rgba(color('white'), .7);
+            font-size: em($font);
+            margin-top: min-em-vh(.4);
+
+            order: 1;
+
+            &:not(:last-child) {
+                margin-bottom: min-em-vh(1.3);
+            }
+
+            dt {
+                &::before {
+                    content: '*';
+                    margin-right: .2em; 
+                }
+
+                &::after {
+                    content: ':';
+                    margin-right: .3em;
+                }
+            }
+        }
+
+        canvas {
+            order: 2;
+        }
+
+        & > div {
+            @extend %flex--row-between;
+
+            &:first-child {
+
+                canvas {
+                    // height: min(#{em(12.3)}, 100%)!important
+                }
+            }
+
+            &:last-child {
+                margin-top: auto;
+
+                canvas {
+                    // height: min(#{em(24.5)}, 100%)!important
+                }
+            }
+        }
+    }
+}
+
+&__group__btn {
+    @extend %flex--row-between;
+
+    $icos: 'refresh', 'more', 'fold';
+
+    position: absolute;
+    top: 1em;
+    right: 1em;
+
+    &>* {
+        width: em($icoWidth);
+        height: em($icoHeight);
+        color: transparent;
+        background: url('') center no-repeat;
+        background-size: auto 100%;
+        overflow: hidden;
+
+        &:not(:last-child) {
+            margin-right: .5em;
+        }
+    }
+
+    @each $value in $icos {
+        .#{$value} {
+            background-image: image('ico_#{$value}.svg');
+        }
+    }
+}
+
+@at-root #wrap {
+
+    #header {
+        transition: $base-transition;
+    }
+
+    .dashboard {
+        transition: $base-transition;
+    }
+
+    &.main {
+        // overflow-x: hidden;
+
+        #content {
+            font-size: #{$dashboard-font-vh * 1vh};
+        }
+
+        &:not(.active) {
+            #header {}
+
+            .dashboard {}
+        }
+
+        &.active {
+
+            #header {
+                height: 0;
+                min-height: 0;
+                overflow: hidden;
+                // opacity: 0;
+            }
+
+            #content {
+                padding-top: min-em-vw($content-interval-top);
+
+                h2 {
+                    top: .5rem;
+                }
+            }
+
+            .dashboard {
+                @extend %dashboard-flex--active;
+            }
+        }
+    }
+}
+}
+
+// chart
+.chart {
+    @at-root %chart {
+        &Colors {
+            .ct-chart-donut .ct-series-a .ct-slice-donut {
+                stroke: color('success');
+            }
+
+            .ct-chart-donut .ct-series-b .ct-slice-donut {
+                stroke: color('danger');
+                opacity: 1;
+            }
+
+            .ct-chart-donut .ct-fill-donut .ct-slice-donut {
+                opacity: 1;
+            }
+
+            &.success {
+                .ct-chart-donut .ct-series-a .ct-slice-donut {
+                    stroke: color('success');
+                }
+
+                .ct-chart-donut .ct-series-b .ct-slice-donut {
+                    stroke: color('gray');
+                }
+
+                .ct-chart-donut .ct-fill-donut .ct-slice-donut {
+                    stroke: color('gray');
+                }
+            }
+
+            &.warning {
+                .ct-chart-donut .ct-series-a .ct-slice-donut {
+                    stroke: color('warning');
+                }
+
+                .ct-chart-donut .ct-series-b .ct-slice-donut {
+                    stroke: color('danger');
+                }
+
+                .ct-chart-donut .ct-fill-donut .ct-slice-donut {
+                    stroke: color('danger');
+                }
+            }
+
+            &.danger {
+                .ct-chart-donut .ct-series-a .ct-slice-donut {
+                    stroke: color('danger');
+                }
+
+                .ct-chart-donut .ct-series-b .ct-slice-donut {
+                    stroke: red;
+                }
+
+                .ct-chart-donut .ct-fill-donut .ct-slice-donut {
+                    stroke: red;
+                }
+            }
+
+            &2 {
+
+                .ct-chart-donut .ct-series-a .ct-slice-donut {
+                    stroke: color('chartblue');
+                }
+
+                .ct-chart-donut .ct-series-b .ct-slice-donut {
+                    stroke: color('chartpurple');
+                }
+
+                .ct-chart-donut .ct-series-c .ct-slice-donut {
+                    stroke: color('chartgreen');
+                }
+            }
+        }
+
+        &Stroke {
+            $storkeWidth: 1em !important;
+            $storkeWidth2: 2em !important;
+
+            .ct-chart-donut {
+                .ct-series-a .ct-slice-donut {
+                    stroke-width: $storkeWidth;
+                }
+
+                .ct-series-b .ct-slice-donut {
+                    stroke-width: $storkeWidth;
+                }
+
+                .ct-series-c .ct-slice-donut {
+                    stroke-width: $storkeWidth;
+                }
+
+                .ct-fill-donut .ct-slice-donut {
+                    // stroke-width: 1em;
+                }
+            }
+
+            &2 {
+                .ct-chart-donut {
+                    .ct-series-a .ct-slice-donut {
+                        stroke-width: $storkeWidth2;
+                    }
+
+                    .ct-series-b .ct-slice-donut {
+                        stroke-width: $storkeWidth2;
+                    }
+
+                    .ct-series-c .ct-slice-donut {
+                        stroke-width: $storkeWidth2;
+                    }
+
+                    .ct-fill-donut .ct-slice-donut {
+                        // stroke-width: 1em;
+                    }
+                }
+            }
+        }
+
+        &Key {
+            $key: #{&};
+            @extend #{$key}-base;
+
+            &-set {
+                ul {
+                    @extend %flex--center;
+
+                    li {
+                        color: color('white');
+                        vertical-align: middle;
+
+                        &::before {
+                            content: '';
+                            display: inline-block;
+                            width: em(1.2);
+                            height: em(1.2);
+                            margin-right: .3em;
+                        }
+
+                        &:not(:last-child) {
+                            margin-right: .8em;
+                        }
+                    }
+                }
+            }
+
+            &-base {
+                @extend #{$key}-set;
+
+                ul {
+                    li {
+                        &:first-child {
+                            &::before {
+                                background: color('success');
+                            }
+                        }
+
+                        &:last-child {
+                            &::before {
+                                background: color('danger');
+                            }
+                        }
+                    }
+                }
+            }
+
+            &New {
+                @extend #{$key}-set;
+                $i: 0;
+                $graphColors: 'blue', 'green', 'yellow', 'red', 'sky', 'purple';
+
+                ul {
+                    li {
+
+                        @each $value in $graphColors {
+                            $i: $i + 1;
+
+                            &:nth-child(#{$i}) {
+                                &:before {
+                                    background: linear-gradient(to bottom, color('chart#{$value}start'), color('chart#{$value}end'));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &-01 {
+        @extend %flex--row-reverse;
+        @extend %chartColors2;
+        @extend %chartStroke2;
+        @extend %chartKeyNew;
+        @extend %nodata-ico;
+
+        $keyWidth: 10;
+
+        height: em(19);
+
+        h5 {
+            @extend %sr-only;
+        }
+
+        svg {
+            width: calc(100% - #{em($keyWidth)}) !important;
+        }
+
+        ul {
+            @extend %flex--row-between;
+
+            align-items: flex-start;
+            justify-content: flex-end;
+            // width: em($keyWidth * 2);
+            width: 100%;
+
+            li {
+                font-size: em($font-sm);
+
+                &:not(:last-child) {
+                    margin-bottom: .5em;
+                }
+            }
+        }
+
+        .ct-fill-donut-label {
+            $thisWidth: 10;
+            width: em($thisWidth);
+            left: calc(calc((100% - #{em($keyWidth)}) / 2) - #{em($thisWidth / 2)});
+
+            text-align: center;
+
+            dt {
+                font-size: em($font-lg);
+                color: color('gray');
+            }
+
+            dd {
+                font-size: em($font-36);
+                line-height: 1;
+            }
+        }
+    }
+
+    &-02,
+    &-03 {
+        @extend %chartColors2;
+        @extend %chartStroke;
+        @extend %chartKeyNew;
+        @extend %flex--col-reverse;
+
+        justify-content: space-between;
+
+        svg {
+            height: 50%;
+        }
+
+        text {
+            display: block;
+            font-size: 1em;
+            fill: color('white');
+            color: color('white');
+            border-radius: .25em;
+            background: rgba(7, 18, 33, 0.76);
+            text-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.26);
+        }
+
+        h5 {
+            @extend %sr-only;
+        }
+    }
+
+    &-04 {
+        
+    }
+}
+
+
+// chart 
+.chart-line {
+    @at-root %chart {
+        &Colors {
+            .ct-chart-donut .ct-series-a .ct-slice-donut {
+                fill: transparent;
+                // stroke: color('success');
+            }
+
+            .ct-chart-donut .ct-series-b .ct-slice-donut {
+                stroke: rgba(color('white'), .2);
+                fill: transparent;
+                // opacity: 1;
+            }
+
+            .ct-chart-donut .ct-fill-donut .ct-slice-donut {
+                // opacity: 1;
+            }
+        }
+
+        &Stroke {
+            $storkeWidth: .6em !important;
+            $storkeWidth2: .6em !important;
+
+            .ct-chart-donut {
+                .ct-series-a .ct-slice-donut {
+                    stroke-width: $storkeWidth;
+                }
+
+                .ct-series-b .ct-slice-donut {
+                    stroke-width: $storkeWidth;
+                }
+
+                .ct-series-c .ct-slice-donut {
+                    stroke-width: $storkeWidth;
+                }
+
+                .ct-fill-donut .ct-slice-donut {
+                    // stroke-width: 1em;
+                }
+            }
+
+            &2 {
+                .ct-chart-donut {
+                    .ct-series-a .ct-slice-donut {
+                        stroke-width: $storkeWidth2;
+                    }
+
+                    .ct-series-b .ct-slice-donut {
+                        stroke-width: $storkeWidth2;
+                    }
+
+                    .ct-series-c .ct-slice-donut {
+                        stroke-width: $storkeWidth2;
+                    }
+
+                    .ct-fill-donut .ct-slice-donut {
+                        // stroke-width: 1em;
+                    }
+                }
+            }
+        }
+    }
+
+    @extend %chartColors;
+    @extend %chartStroke;
+
+    // width: min(#{em($chart1Width)}, 100%);
+    // height: #{em($chart1Width)};
+    margin-bottom: -(em(2));
+
+    svg {
+
+        .ct-slice-donut {
+            stroke-dasharray: 1% 2%;
+        }
+    }
+
+    dl {
+        div {
+            @extend %flex--center;
+        }
+    }
+
+    dt {
+        @extend %sr-only;
+    }
+
+    .ct-fill-donut-label {
+        top: 50%;
+        transform: translateY(-45%);
+    }
+
+    &-data {
+        &-01 {
+            font-size: em(3);
+            margin-bottom: em(.5, 3);
+        }
+
+        &-02 {
+            &::after {
+                // content: '/h';
+            }
+        }
+    }
+
+    &-01 {
+        @extend .chart-line;
+
+        .chart-line-data-01 {
+            color: var(--line-color-01);
+        }
+
+        .ct-chart-donut .ct-series-a .ct-slice-donut {
+            stroke: var(--line-color-01);
+        }
+    }
+
+    &-02 {
+        @extend .chart-line;
+
+        .chart-line-data-01 {
+            color: var(--line-color-02);
+        }
+
+        .ct-chart-donut .ct-series-a .ct-slice-donut {
+            stroke: var(--line-color-02);
+        }
+    }
+
+    &-03 {
+        @extend .chart-line;
+
+        .chart-line-data-01 {
+            color: var(--line-color-03);
+        }
+
+        .ct-chart-donut .ct-series-a .ct-slice-donut {
+            stroke: var(--line-color-03);
+        }
+    }
+
+    &-04 {
+        @extend .chart-line;
+
+        .chart-line-data-01 {
+            color: var(--line-color-04);
+        }
+
+        .ct-chart-donut .ct-series-a .ct-slice-donut {
+            stroke: var(--line-color-04);
+        }
+    }
+
+    &-05 {
+        @extend .chart-line;
+
+        .chart-line-data-01 {
+            color: var(--line-color-05);
+        }
+
+        .ct-chart-donut .ct-series-a .ct-slice-donut {
+            stroke: var(--line-color-05);
+        }
+    }
+}
+
+
+.gauge {
+    height: auto;
+    position: relative;
+
+    .circle {
+        $rad: 2.5;
+        width: em($rad);
+        height: em($rad);
+        display: block;
+        background-color: #9b1642;
+        border-radius: 50%;
+        position: absolute;
+        // bottom: -(em($rad / 2));
+        bottom: -(em($rad / 3));
+        left: calc(50% - #{em($rad / 2)});
+        text-align: center;
+        color: transparent;
+    }
+
+    .initialValue {
+        display: none;
+        border: none;
+        display: block;
+        width: 3em;
+        background-color: transparent;
+        margin: 1em auto;
+        outline: none;
+        text-align: center;
+    }
+
+    /*SVG*/
+
+    svg {
+        margin: 0;
+        padding: 0;
+        // cursor: pointer;
+        width: 100%;
+        height: 100%;
+        background: image('gauge.svg') bottom no-repeat;
+        background-size: 100%;
+    }
+
+    .outline,
+    .fill,
+    .center,
+    .needle,
+    .scale,
+    .output {
+        pointer-events: none;
+    }
+
+    .outline {
+        // fill: color('gradientbluestart');
+        fill: color('danger');
+        display: none;
+    }
+
+    .fill {
+        // fill: url(#MyGradient);
+        fill: color('success');
+        display: none;
+    }
+
+    .needle {
+        fill: url(#MyGradient);
+    }
+
+    .scale {
+        stroke: rgba(color('white'), .7);
+        width: 100%;
+        // display: none;
+        font-weight: normal;
+    }
+
+    text {
+        text-anchor: middle;
+        font-size: em($font-xs);
+        // fill: color('trans');
+    }
+}
+
+@keyframes alert {
+
+    0% {}
+
+    100% {
+        background: linear-gradient(to right, rgba(color('danger'), .5), rgba(color('danger'), 0));
+    }
+}

@@ -1,0 +1,9 @@
+@import '../../../../../_assets/scss/containers/_body'; // %body
+
+body {
+    @extend %body;
+
+    @extend %nodata-ico-loading-fixed;
+    
+    overflow: hidden;
+}

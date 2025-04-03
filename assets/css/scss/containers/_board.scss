@@ -1,0 +1,20 @@
+@import '../../../../../_assets/scss/containers/_board'; // %board
+
+.board {
+    &__write {
+        @extend %board__write;
+    }
+
+    &__view {
+        $this: '%board__view';
+        @extend #{$this};
+
+        &-content { 
+            @extend #{$this}-content;
+        }
+
+        &-files {
+            @extend #{$this}-files;
+        }
+    }
+}

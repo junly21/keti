@@ -1,0 +1,105 @@
+@import '../../../../../_assets/scss/components/_input'; // %input
+
+[class^=board] {
+    input {
+        @extend %input-text;
+        @extend %radio-psuedo-line;
+        @extend %input-date;
+
+        &[type=file] {
+            @extend %input-file-base;
+        }
+    }
+
+    label {
+
+        &:first-child {
+            @extend %input-label-list-block;
+
+            .required {
+                @extend %required--right;
+            }
+        }
+    }
+
+    [role=radiogroup] {
+        @extend %radio-psuedo-interval;
+    }
+}
+
+[role=searchbox] {
+    input {
+        @extend %input-text;
+        @extend %input-date;
+        @extend %radio-psuedo-line;
+    }
+}
+
+[type=date] {
+    min-width: em(16);
+}
+
+.chk-wrap {
+    @extend %chk-svg--path;
+}
+
+.loginbox {
+    input {
+        @extend %input-login;
+    }
+}
+
+.modal-wrap {
+
+    [type=checkbox] {
+        @extend %sr-only;
+    }
+    .input_chk:first-child,
+    .input_chk_case02:first-child {
+        margin-top: .375em
+    }
+    
+    .input_chk:not(:last-child),
+    .input_chk_case02:not(:last-child) {
+        margin-bottom: .375em
+    }
+
+    .input_chk [type=checkbox]+label,
+    .input_chk_case02 [type=checkbox]+label {
+        display: inline-flex;
+        cursor: pointer
+    }
+
+
+    .input_chk [type=checkbox]+label::before,
+    .input_chk_case02 [type=checkbox]+label::before {
+        content: "";
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border: 1px solid #d1d6de;
+        cursor: pointer
+    }
+
+    .input_chk [type=checkbox]+label::before:not(:only-child),
+    .input_chk_case02 [type=checkbox]+label::before:not(:only-child) {
+        margin-right: .5em
+    }
+
+    .input_chk [type=checkbox]+label span,
+    .input_chk_case02 [type=checkbox]+label span {
+        font-size: .875em
+    }
+
+    .input_chk [type=checkbox]:checked+label::before,
+    .input_chk_case02 [type=checkbox]:checked+label::before {
+        background: #fff url("../images/ico_checked.svg") center no-repeat;
+        background-size: 71.4285714286%
+    }
+
+    .input_chk [type=checkbox]:focus+label::before,
+    .input_chk_case02 [type=checkbox]:focus+label::before {
+        border-color: #d1d6de
+    }
+}

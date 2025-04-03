@@ -1,0 +1,214 @@
+@import '../../../../../_assets/scss/components/_table'; // %table
+
+table {
+    @extend %table-normal;
+
+    thead {
+        th {
+            font-weight: normal;
+        }
+    }
+
+    tbody {
+        tr {
+            td {
+
+                strong {
+                    color: color('white');
+                }
+            }
+
+            &.danger {
+                background: linear-gradient(to right, color('danger') 6px, rgba(red, 0.62) 6px, rgba(red, .26) 100%);
+            }
+        }
+    }
+
+    caption {
+        @extend %sr-only;
+    }
+}
+
+.table-wrap {
+    @extend %table-wrapper;
+}
+
+.modal-wrap {
+    .pl10 {
+        padding-left: 10px !important
+    }
+    .board-set,
+    .board-register,
+    .board-list,
+    .board-list--blue {
+        border-left: none;
+        border-right: none;
+        border-top: 1px solid #d1d6de;
+        margin-top: 0
+    }
+
+    .board-set h4,
+    .board-register h4,
+    .board-list h4,
+    .board-list--blue h4 {
+        width: 65em
+    }
+
+    .board-set tr.fixed,
+    .board-register tr.fixed,
+    .board-list tr.fixed,
+    .board-list--blue tr.fixed {
+        background: #f2f4f8
+    }
+
+    .board-set tr th,
+    .board-register tr th,
+    .board-list tr th,
+    .board-list--blue tr th {
+        background: #eff3fc
+    }
+
+    .board-set:not(:last-child),
+    .board-register:not(:last-child),
+    .board-list:not(:last-child),
+    .board-list--blue:not(:last-child) {
+        margin-bottom: 1em
+    }
+
+    .board-set.th--strong th,
+    .th--strong.board-register th,
+    .th--strong.board-list th,
+    .th--strong.board-list--blue th {
+        font-weight: 500
+    }
+
+    .board-set .col-th,
+    .board-register .col-th,
+    .board-list .col-th,
+    .board-list--blue .col-th {
+        width: 10%
+    }
+
+    .board-set .col-td,
+    .board-register .col-td,
+    .board-list .col-td,
+    .board-list--blue .col-td {
+        width: 20%
+    }
+
+    .board-set textarea,
+    .board-register textarea,
+    .board-list textarea,
+    .board-list--blue textarea {
+        width: 100%;
+        border: 1px solid #d1d6de;
+        resize: none;
+        height: 9.125em;
+        padding: .5em
+    }
+
+    .board-set .small,
+    .board-register .small,
+    .board-list .small,
+    .board-list--blue .small {
+        font-size: .8em
+    }
+
+    [role=alertdialog] .board-set tbody tr th,
+    [role=alertdialog] .board-register tbody tr th,
+    [role=alertdialog] .board-list tbody tr th,
+    [role=alertdialog] .board-list--blue tbody tr th {
+        text-align: left;
+        padding: .4375em .75em
+    }
+
+    .board-set table:not(:last-child),
+    .board-register table:not(:last-child),
+    .board-list table:not(:last-child),
+    .board-list--blue table:not(:last-child) {
+        margin-bottom: 1.75em
+    }
+
+    .board__head--blue thead tr th,
+    .board-register thead tr th,
+    .board-list--blue thead tr th {
+        background: linear-gradient(to bottom, #1c72cf, #1758ac);
+        color: #fff
+    }
+
+    .board-list td,
+    .board-list--blue td {
+        text-align: center;
+        height: 2.375rem
+    }
+
+    .board-list--blue tbody tr td {
+        height: 43px
+    }
+
+    .board-register td {
+        height: 2.6875rem
+    }
+
+    .board-register td select {
+        min-height: 1.875rem;
+        box-sizing: border-box
+    }
+
+    .board-register td [type=checkbox]+label::before {
+        width: 1rem;
+        height: 1rem
+    }
+
+    .field_required:after {
+        content: "*";
+        display: inline-block;
+        vertical-align: top;
+        color: #dc0021;
+        margin-left: 1px;
+        font-weight: bold;
+        margin: 0 2px
+    }
+
+    .board_bttm_btn {
+        margin-top: 18px;
+        text-align: center
+    }
+
+    .board_subject {
+        width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal;
+        overflow: hidden
+    }
+
+    table.td-text-left td {
+        text-align: left
+    }
+
+    .board-set tr td,
+    .board-register tr td,
+    .board-list tr td,
+    .board-list--blue tr td,
+    .board-set tr th,
+    .board-register tr th,
+    .board-list tr th,
+    .board-list--blue tr th {
+        border-bottom: 1px solid #d1d6de;
+        padding: .40625rem .625rem;
+        vertical-align: middle;
+    }
+
+    table tr th,
+    table tr td {
+        color: #333;
+        margin: 0 5px;
+        word-break: keep-all;
+        padding: .3rem .3rem
+    }
+
+    table tr th {
+        font-weight: 400
+    }
+}

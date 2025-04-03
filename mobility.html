@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="명지대 시각화" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1" />
+    <title>네트워크 단위 이동성 평가</title>
+    <link rel="stylesheet" href="assets/css/output.min.css" />
+</head>
+
+<body>
+    <div id="wrapper">
+        <main id="content" class="content full keti-rate">
+            <section class="content-03">
+                <h2>네트워크 단위 이동성 평가</h2>
+                <section class="content-03-01">
+                    <h3>MPR 30</h3>
+                    <section class="content-03-01-01">
+                        <!-- 히트맵 -->
+                        <div id="content-03-01-01"></div>
+                    </section>
+                    <section class="content-03-01-02">
+                        <!-- 히트맵 -->
+                        <div id="content-03-01-02"></div>
+                    </section>
+                </section>
+                <section class="content-03-02">
+                    <h3>MPR 60</h3>
+                    <section class="content-03-02-01">
+                        <!-- 히트맵 -->
+                        <div id="content-03-02-01"></div>
+                    </section>
+                </section>
+                <section class="content-03-03">
+                    <h3>ATT <small>(Average Travel Time)</small></h3>
+                    <section class="content-03-03-01" id="content-03-03-01">
+                        <!-- 차트 -->
+                    </section>
+                </section>
+                <section class="content-03-04">
+                    <h3>AS <small>(Average Speed)</small></h3>
+                    <section class="content-03-04-01" id="content-03-04-01">
+                        <!-- 차트 -->
+                    </section>
+                </section>
+                <section class="content-03-05">
+                    <h3>Average Accel/Decel</h3>
+                    <section class="content-03-05-01" id="content-03-05-01">
+                        <!-- 차트 -->
+                    </section>
+                </section>
+                <section class="content-03-06">
+                    <h3>Average Departure Delay</h3>
+                    <section class="content-03-06-01" id="content-03-06-01">
+                        <!-- 차트 -->
+                    </section>
+                </section>
+            </section>
+        </main>
+    </div>
+    <script src="assets/js/vendors/echarts.min.js"></script>
+    <script src="assets/js/vendors/heatmap.min.js"></script>
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/chart0303.js"></script>
+    <script src="assets/js/chart0304.js"></script>
+    <script src="assets/js/chart0305.js"></script>
+    <script src="assets/js/chart0306.js"></script>
+    <script src="https://unpkg.com/css-has-pseudo@4.0.1/dist/browser-global.js"></script>
+    <script>
+        cssHasPseudo(document)
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log("Page fully loaded. Ready to call drawNetwork.");
+            setLoading("mobility");
+        });
+    </script>
+</body>
+
+</html>

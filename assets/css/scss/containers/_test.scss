@@ -1,0 +1,90 @@
+// list style component
+
+%a {
+    background: red;
+}
+%b {
+    font-weight: bold;
+}
+%c {
+    color: blue;
+}
+
+%d {
+    padding: {
+        left: 5rem;
+        right: 5rem;
+    }
+
+    background: {
+        color: green;
+        size: auto;
+    }
+}
+
+%section {
+    &IntervalVertical {
+
+        &:not(:last-child) {
+            margin-bottom: 5rem;
+        }
+    }
+}
+
+%ul {
+    margin: 0;
+
+    &:not(:last-child) {
+        margin-bottom: 2rem;
+    }
+}
+
+%sub-ul-li {
+    font-size: 5rem;
+}
+
+section[class^=main] {
+    @extend %sectionIntervalVertical;
+}
+
+.main {
+    $items: 'a', 'b', 'c';
+    $sections: 5;
+
+    &-ul {
+    
+        @extend %ul;
+
+        @each $value in $items {
+            &-#{$value} {
+                @extend %#{$value};
+            }
+        }
+    }
+}
+
+.sub {
+    $items: 'a', 'b', 'c', 'd';
+
+    &-ul {
+
+        @extend %ul;
+
+        @each $value in $items {
+            &-#{$value} {
+                @extend %#{$value};
+                @extend %sub-ul-li;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .sub {
+        &-ul {
+            &-a {
+                background: blue;
+            }
+        }
+    }
+}

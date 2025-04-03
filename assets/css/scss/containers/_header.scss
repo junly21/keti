@@ -1,0 +1,75 @@
+@import '../../../../../_assets/scss/containers/_header'; // %header
+
+#header{
+    @extend %header-#{$header-style};
+    
+    box-shadow: 0 5px 13px 0 rgba(0, 0, 0, 0.07);
+    color: color('white');
+
+    &::after {
+        content: '';
+        width: 100%;
+        display: block;
+        height: min-em-vw($header-horizontal-height);
+        // background: linear-gradient(to bottom, color('gradientheaderstart'), color('gradientheaderend'));
+        position:absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .header-wrap {
+        @extend %inner-padding-max;
+
+        @extend %flex--row-between;
+        align-items: flex-start;
+        // position: relative;
+        // flex-wrap: nowrap;
+        // height: 100%;
+    }
+    
+    .gnb-wrap { 
+        @extend %flex;
+        max-width: 80%;
+    }
+
+    h1 {
+        @extend %flex--center;
+        // margin-right: em($header-horizontal-title-interval-horizontal);
+        font-weight: normal;
+
+        a {
+            @extend %flex--row-between-center;
+
+            word-break: keep-all;
+
+            img {
+                margin-right: em(1.23);
+            }
+
+            span {
+                flex: 1;
+
+                strong {
+                    font-size: em($font-lg);
+                    display: block;
+                    font-weight: normal;
+                }
+            }
+        }
+    }
+}
+
+.content-shortcut {
+    @extend %sr-only;
+
+    &:focus {
+        width: 100%;
+        background-color: color('point');
+        color: color('white');
+        font-size: em(3);
+        line-height: min(15vw, #{em($header-horizontal-height, 3)});
+        text-align: center;
+        z-index: get-zIndex('header') + 1;
+    }
+}

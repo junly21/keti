@@ -1,0 +1,5 @@
+@import '../../../../../_assets/scss/components/_textarea'; // %textarea
+
+textarea {
+    @extend %textarea-base;
+}

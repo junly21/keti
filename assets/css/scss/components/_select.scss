@@ -1,0 +1,14 @@
+@import '../../../../../_assets/scss/components/_select'; // %select
+
+[role=searchbox] {
+    select {
+        @extend %select;
+    }
+
+}
+
+select {
+    &.form-com {
+        @extend %select-base;
+    }
+}

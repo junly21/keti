@@ -1,0 +1,17 @@
+@import '../../../../../_assets/scss/containers/_wrapper'; // &wrapper
+
+#wrapper {
+    @extend %wrapper-#{$wrapper-style};
+    // @extend %inner-min;
+}
+
+.all {
+    font-size: .75em;
+
+    @at-root body:has(#{&}) {
+        max-width: 1080px;
+        max-height: 1920px;
+        overflow: hidden;
+        margin: auto;
+    }
+}

@@ -1,0 +1,751 @@
+﻿@import "../../../../_assets/scss/base/_variables";
+
+$base-modify-latest: "220728";
+
+$project-title: 'daegu';
+
+$colors: ('white' : #fff,
+    'black' : #000,
+    'gray' : rgba(255, 255, 255, 0.7),
+    'bggray' : #f2f4f7,
+    'bordergray' : #d1d6de,
+    'borderblack': rgba(0,0,0,.3),
+    'borderblue': #2c519c,
+    'borderdark': #324051,
+    'borderopacity': rgba(151, 189, 255, 0.3),
+    'point' : #1cd6f3,
+    'boxshadow' : rgba(0, 0, 0, 0.15),
+    'trans' : transparent,
+    'dimmed' : rgba(0, 0, 0, 0.2),
+    'textshadow' : rgba(163, 84, 84, 0.1),
+    'success' : #27e4b0,
+    'warning' : #ffc521,
+    'danger' : #dc0021,
+    'focus' : #fff,
+    'baseoutline' : #9dbff6,
+    'bgrequired' : #fff,
+    'radioactive': #1765b9,
+    'navy': #000b20,
+
+    'disabled': #e5e5e5,
+    
+    'normal' : #4a556a,
+    'containerbg' : #1b3151,
+    'dotgray' : #b8b8b8,
+
+    'bgblue': #3C69B7, 
+    'yellow': #ffe600,
+    'orange': #ffa14e,
+    'header': #4a556a,
+
+    'tableth': #eff3fc,
+
+    'gradienttabletitlestart': #1c72cf,
+    'gradienttabletitleend': #1758ac,
+    'gradientwhitestart': #fcfdff,
+    'gradientwhiteend': #ebeff6,
+    'gradientgreenstart': #33d4d9,
+    'gradientgreenend': #008291,
+    'gradientnavystart': #4f6694,
+    'gradientredstart': #ff6464,
+    'gradientredend': #c54747,
+    'gradientnavyend': #223350,
+    'gradientbgstart': #2866CF,
+    'gradientbgend': #002056,
+    'opacityblack1': rgba(0, 0, 0, .16),
+    'opacityblack2': rgba(0, 0, 0, .2),
+    'opacityblack3': rgba(0, 0, 0, .3),
+    'opacityblack4': rgba(0, 0, 0, .54),
+    'gradientheaderstart': #006ea7,
+    'gradientheaderend': #003591,
+    'gradientniddlestart': #f2437e,
+    'gradientniddleend': #9b1642,
+    'gradientbtnbluestart': #7da6f8,
+    'gradientbtnblueend': #2a5abb,
+    'gradientbtndarkstart': #7890ac,
+    'gradientbtndarkhalf': #5d7491,
+    'gradientbtndarkend': #3a495d,
+    'gradientgraystart': #a6afb8,
+    'gradientgrayend': #727880,
+
+
+    'headeractive': #1cd6f3,
+
+    'chartbluestart': #4189d5,
+    'chartblueend': rgba(65, 137, 213, 0),
+    'chartgreenstart': #44ff37,
+    'chartgreenend': rgba(68, 255, 55, 0),
+    'chartyellowstart': #f8c367,
+    'chartyellowend': #9a6914,
+    'chartredstart': #e42727,
+    'chartredend': #e42727,
+    'chartskystart': #0df9fe,
+    'chartskyend': #16acf4,
+    'chartpurplestart': #ec41f2,
+    'chartpurpleend': #a100a7,
+    'chartgraystart': #dde5ee,
+    'chartgrayend': rgba(221, 229, 238, 0.05),
+    'chartblue2start': rgba(#4189d5, .5),
+    'chartblue2end': rgba(65, 137, 213, 0),
+    'chartsky2start': rgba(#1cd6f3, .5),
+    'chartsky2end': rgba(28, 214, 243, 0),
+    'chartyellow2start': #fdcb68,
+    'chartyellow2end': #fcb321,
+
+    'linered': #e42727,
+    'linegreen': #93e528,
+    'linegreen2': #1cf295,
+    'lineyellow': #d99216,
+
+    'depth1start': #4f91c9,
+    'depth1end': #65abe8,
+);
+
+$inner-m-padding-horizontal: 3.3%;
+$inner-m-padding: 0 $inner-m-padding-horizontal;
+$outer-width: 1920;
+$outer-width-scroll: ($outer-width - 40) / 10;
+$inner-padding-horizontal: 32;
+$inner-width: 1200;
+$inner-max: 1920;
+$inner-min: 1440;
+$inner-padding: 0 ($inner-padding-horizontal * 1px);
+$full-height: calc(100vh);
+$resolution-max: 3840;
+$mq-breakpoints: ('xlg': $outer-width * 1px, 'lg': $inner-width * 1px, 'md': 1024px, 'sm': 768px, 'xs': 560px, ) !global;
+$mobile-fixed: map-get($mq-breakpoints, 'xs');
+
+$font-xl-l: 2.8;
+$font-xl: 2.2;
+$font-xl-s: 2;
+$font-lg-l: 1.9; 
+$font-lg: 1.8;
+$font-md: 1.6;
+$font-sm-l: 1.5;
+$font-sm: 1.4;
+$font-sm-s: 1.3;
+$font-xs: 1.2;
+$font-title: 2.8;
+$font-36: 3.6;
+$font-clickable: $font-sm;
+$font-mobile: $font-xs;
+$font-family: (
+    $notosans,
+);
+
+$base-fontFamily:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"!default;
+$base-color: map-get($colors, 'white');
+$base-lineHeight: 1.4;
+$base-border-radius: 0.4;
+$base-borderColor: map-get($colors, 'bordergray');
+$base-borderColor-active: map-get($colors, 'point');
+$base-border: 1px solid map-get($colors, 'bordergray');
+$base-input-placeholder-color: map-get($colors, 'black');
+$base-input-padding-vertical: 1;
+$base-clickable-minHeight: 3;
+$base-delay: 'none';
+$base-letterSpacing: -0.05em;
+$base-shadow: 3px 3px 6px rgba(0, 0, 0, 0.05);
+$base-shadow-active: 3px 3px 6px rgba(0, 0, 0, 0.2);
+$base-transition: all 0.2s cubic-bezier(1, 0.2, 0.26, 0.7);
+$base-shadow-inset: 'none';
+$base-button-interval-horizontal: 0.5;
+$base-container-interval-vertical: 3;
+$base-button-padding-vertical: 0.5;
+$base-textarea-height: 20;
+$base-padding-horizontal: 1;
+$base-title-lineHeight: 1.2;
+$base-active-class: 'active';
+$base-absolute-asset-path: 'assets';
+$base-asset-path: '..';
+$base-table-minWidth: 60;
+$base-content-interval-vertical: 1.6;
+$base-image-path: 'images';
+$base-empty-height: 40;
+$base-breakpoint: 'md';
+$base-bgColor: radial-gradient(map-get($colors, 'gradientbgstart'), map-get($colors, 'gradientbgend'));
+$base-outline-width: 0;
+
+$width: $outer-width; // 1920
+$padding-horizontal: 3.2;
+$padding-horizontal-percent: percentage($padding-horizontal / ($width / 10)) / 1% * 1vw;
+$padding-horizontal-min: $padding-horizontal;
+$header-horizontal-position: null;
+
+$nodata-bgColor: map-get($colors, 'opacityblack3');
+$nodata-text-top-per: 50%;
+$nodata-ico-interval-vertical: .5;
+$nodata-color: inherit;
+
+$nodata-ico-width: 0;
+$nodata-ico-height: 0;
+$nodata-ico-url: 'ico/nodata.svg';
+
+$loading-ico-width: 16;
+$loading-ico-height: 16;
+$loading-ico-url: 'ico/loading.webp';
+
+$div: (
+    'half': 2,
+    'third': 3,
+    'fourth': 4,
+);
+
+$inputs: ( // label, button, textarea의 기준이 됨
+
+    'normal-font': $font-sm,
+    'normal-color': map-get($colors, 'black'),
+    'normal-color-active': map-get($colors, 'none'),
+
+    'normal-width': auto,
+    'normal-height': 3.2,
+    'normal-borderColor-active': map-get($colors, 'bordergray'),
+    'normal-borderColor': map-get($colors, 'bordergray'),
+    'normal-border-width-active': .1,
+    'normal-border-width': .1,
+    'normal-border-radius': 0,
+    'normal-bgColor-active': map-get($colors, 'white'),
+    'normal-bgColor': map-get($colors, 'white'),
+    'normal-bgColor-required': map-get($colors, 'input'),
+    'normal-interval-horizontal': 1.4,
+    'normal-interval-vertical': 1.4,
+    'normal-padding-horizontal': 1,
+    'normal-padding-vertical': .5,
+    'normal-placeholder-color': map-get($colors, 'gray'),
+
+    // li, div 등
+    'normal-container-height': 4.6,
+    'normal-container-borderColor': map-get($colors, 'none'),
+    'normal-container-border-width': 0.1,
+
+    'login-font': $font-lg,
+    'login-color': map-get($colors, 'white'),
+    'login-width': 33,
+    'login-height': 5,
+    'login-bgColor': map-get($colors, "bg"),
+    'login-borderColor': map-get($colors, "border"),
+    'login-border-width': 0.1,
+    'login-border-radius': 1,
+    'login-interval-vertical': 1.7,
+    'login-letterSpacing': $base-letterSpacing,
+    'login-padding-horizontal': 1.2, //'normal-padding-horizontal',
+    'login-shadow-inset': $base-shadow-inset,
+    'login-label-font': $font-md,
+
+    // label
+    'normal-label-font': 1.6,
+    'normal-label-width': 18,
+    // 'normal-label-interval-vertical': 1.2, // 220705 비밀번호변경 페이지의 th 하위 label에 %input-label로 인한 margin-bottom 생성으로 삭제
+
+    'file-width': 13,
+    'file-text': '첨부',
+    'search-width': 45,
+
+    'calendar-bgColor': null, 
+    'calendar-ico-width': 2.2, 
+    'calendar-ico-box-bgColor': null,
+    'calendar-ico-url': 'ico/calendar.svg',
+    'calendar-padding-horizontal': 1,
+    'calendar-selector': '-webkit-calendar-picker-indicator',
+    'calendar-type': ('date','month'),
+
+
+    'active-class': $base-active-class,
+);
+
+$selects: (
+    'normal-font': map-get($inputs, 'normal-font'),
+    'normal-color': map-get($inputs, 'normal-color'),
+    'normal-width': map-get($inputs, 'normal-width'),
+    'normal-height': map-get($inputs, 'normal-height'),
+    'normal-borderColor': map-get($inputs, 'normal-borderColor'),
+    'normal-border-width': map-get($inputs, 'normal-border-width'),
+    'normal-border-radius': map-get($inputs, 'normal-border-radius'),
+    'normal-bgColor': map-get($inputs, 'normal-bgColor'),
+    'normal-arrow-width': .6,
+    'normal-arrow-height': .5,
+    'normal-arrow-svg': 'ico/arrow_select.svg',
+    'normal-padding-horizontal': map-get($inputs, 'normal-padding-horizontal'),
+    'normal-padding-vertical': map-get($inputs, 'normal-padding-vertical'),
+    'normal-interval-vertical': map-get($inputs, 'normal-interval-vertical'),
+);
+
+$input-etc: (
+    'checkbox',
+    'radio',
+    'file',
+);
+
+$input-text-styles: (
+    'normal',
+    'login',
+);
+
+$btns: ('normal-font': $font-lg,
+    'normal-width': 9,
+    'normal-height': map-get($inputs, 'normal-height'),
+
+    'normal-color': map-get($colors, 'white'),
+    'normal-color-active': map-get($colors, 'none'),
+    'normal-borderColor': map-get($colors, 'trans'),
+    'normal-borderColor-active': map-get($colors, 'point'),
+    'normal-border-width': map-get($inputs, 'normal-border-width'),
+    'normal-border-width-active': map-get($inputs, 'normal-border-width-active'),
+    'normal-border-radius': $base-border-radius,
+    'normal-bgColor': map-get($colors, 'normal'),
+    'normal-bgColor-active': map-get($colors, 'normal'),
+    'normal-interval-horizontal': $base-button-interval-horizontal,
+    'normal-interval-vertical': 3,
+    'normal-letterSpacing': $base-letterSpacing,
+    'normal-transition': $base-transition,
+    'normal-padding-vertical': .5,
+    'normal-padding-horizontal': .5,
+
+    // sizes
+    'large-font': $font-xl,
+    'large-width': 11,
+    'large-height': 4,
+
+    'small-font': $font-sm,
+    'small-width': 7,
+    'small-height': 3,
+
+    // labels
+    'delete-color': map-get($colors, 'white'),
+    'delete-borderColor': map-get($colors, 'danger'), 
+    'delete-bgColor': map-get($colors, 'danger'),
+
+    'submit-color': map-get($colors, 'white'),
+    'submit-borderColor': map-get($colors, 'point'),
+    'submit-bgColor': map-get($colors, 'point'),
+
+    'group-interval-vertical': $base-container-interval-vertical,
+
+    'active-class': $base-active-class,
+    'interval-horizontal': 0,
+    'interval-vertical': 0,
+);
+
+$btn-labels: ( // color control
+    'delete': 'danger',
+    'submit': 'point',
+);
+
+$btn-sizes: ( // key: rate
+    'small': .8,
+    'large': 1.2,
+);
+
+$btn-styles: ('normal',
+);
+
+$labels: ('normal-font': map-get($inputs, 'normal-font'),
+    'normal-color-active': map-get($inputs, 'normal-color-active'),
+    'normal-color': map-get($inputs, 'normal-color'),
+);
+
+$radios: ( // ico
+    'normal-ico-width': .8,
+    'normal-ico-height': .8,
+    'normal-ico-color': map-get($colors, "point"),
+    'normal-ico-borderColor': map-get($colors, "trans"),
+    'normal-ico-bgColor': map-get($colors, "trans"),
+    'normal-ico-bgColor--active': map-get($colors, "white"),
+
+    // box
+    'normal-box-width': 1.6,
+    'normal-box-height': 1.6,
+    'normal-box-bgColor': map-get($colors, "white"),
+    'normal-box-bgColor--active': map-get($colors, "radioactive"),
+    'normal-box-borderColor': map-get($colors, "bordergray"),
+    'normal-box-borderColor-hover': map-get($colors, "trans"),
+    'normal-box-borderColor--active': map-get($colors, "radioactive"),
+    'normal-box-border-radius': 50%,
+    'normal-box-border-width': 0.1,
+    'normal-box-border-width-hover': 0.1,
+    'normal-box-border-width-active': 0.1,
+    'normal-box-interval-horizontal': 0.8,
+
+    'normal-transition': all 250ms cubic-bezier(.4, .25, .3, 1),
+);
+
+$chks: ('normal-ico-width': 0,
+    'normal-ico-height': 0,
+    'normal-ico-color': map-get($colors, "point"),
+    'normal-ico-stroke-width': .2,
+    'normal-ico-svg': none,
+    'normal-box-width': 2.4,
+    'normal-box-height': 2.4, // normal-box-width
+    'normal-box-bgColor': map-get($colors, "trans"),
+    'normal-box-borderColor': map-get($colors, "white"),
+    'normal-box-borderColor-hover': map-get($colors, "white"),
+    'normal-box-borderColor--active': map-get($colors, "white"),
+    'normal-box-border-radius': .4,
+    'normal-box-border-width': .1,
+    'normal-box-border-width-hover': .1, // normal-box-border-width
+    'normal-box-border-width-active': .1, // normal-box-border-width
+    'normal-box-interval-horizontal': .8,
+    
+    'normal-label-font': 1.6,
+    'normal-box-border-width--hover': .1,
+    'normal-box-border-width--active': .1,
+);
+
+
+// header start
+$header-style:'horizontal';
+$header-breakpoint: 0;
+$header-font: $font-md;
+$header-active-class: $base-active-class;
+$header-color: inherit;
+
+// horizontal-style
+$header-horizontal-height: 5.4 + .8;
+// $header-horizontal-bgColor: linear-gradient(to bottom, map-get($colors, "gradientheaderstart"), map-get($colors, "gradientheaderend"));
+$header-horizontal-bgColor: map-get($colors, "trans");
+$header-horizontal-bgColor--active: map-get($colors, "trans");
+$header-horizontal-borderColor: map-get($colors, "trans");
+$header-horizontal-border-width: 0;
+$header-horizontal-border: ($header-horizontal-border-width * 10px) solid $header-horizontal-borderColor;
+$header-horizontal-padding-vertical: 1.5;
+$header-horizontal-title-font: $font-md;
+$header-horizontal-title-color: '';
+$header-horizontal-title-height: $header-horizontal-height;
+$header-horizontal-title-interval-horizontal: 2.2;
+$header-horizontal-logo-width: 35;
+$header-horizontal-logo-height: 3.9;
+$header-horizontal-logo-interval-horizontal: 1.3;
+$header-horizontal-m-height: $header-horizontal-height;
+$header-horizontal-m-bgColor-active: '';
+$header-horizontal-m-bgColor: '';
+
+//// vertical-style 
+$header-vertical-width: 25;
+$header-vertical-m-width: 40%;
+$header-vertical-bgColor: map-get($colors, "header");
+$header-vertical-bgColor-active: map-get($colors, "header");
+$header-vertical-borderColor: map-get($colors, "point");
+$header-vertical-border-width: 0.3;
+$header-vertical-border: ($header-vertical-border-width * 10px) solid $header-vertical-borderColor;
+$header-vertical-padding-vertical: 1.5;
+$header-vertical-title-font: $font-md;
+$header-vertical-title-color: '';
+$header-vertical-title-height: auto;
+$header-vertical-logo-width: 13.8;
+$header-vertical-logo-height: 3.3;
+$header-vertical-logo-interval-horizontal: 2;
+$header-vertical-m-bgColor: '';
+// header end
+
+// headerUtils start
+$headerUtils-nav-font: $font-xs;
+
+$headerUtils-horizontal-title-font: $font-sm;
+$headerUtils-horizontal-portrait-width: 3.8;
+$headerUtils-horizontal-portrait-height: 3.8;
+$headerUtils-horizontal-ico-width: 2;
+$headerUtils-horizontal-ico-height: 2;
+$headerUtils-horizontal-ico-interval-horizontal: 2.8;
+$headerUtils-horizontal-ico-active-width: .4;
+$headerUtils-horizontal-ico-active-height: .4;
+$headerUtils-horizontal-height: auto;
+
+$headerUtils-vertical-title-font: $font-sm;
+$headerUtils-vertical-portrait-width: 6;
+$headerUtils-vertical-portrait-height: 6;
+$headerUtils-vertical-ico-width: 2;
+$headerUtils-vertical-ico-height: 2;
+$headerUtils-vertical-ico-interval-horizontal: 2.8;
+$headerUtils-vertical-ico-active-width: .4;
+$headerUtils-vertical-ico-active-height: .4;
+// headerUtils end
+
+// gnb start
+$gnb-nav-style: $header-style; // horizontal, vertical
+
+$gnb-ico-name: 'gnb';
+$gnb-ico-count: 6;
+$gnb-ico-style: 'normal';
+$gnb-ico-suffix: 'svg';
+
+$gnb-horizontal-wrapper-bgColor: rgba(11, 33, 70, 0.8);
+$gnb-horizontal-breakpoint: $inner-width;
+$gnb-horizontal-nav-width: 16;
+$gnb-horizontal-close-width: 3.9;
+$gnb-horizontal-close-height: 3.9;
+$gnb-horizontal-close-btn-svg: 'data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAAnCAMAAAC7faEHAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAe1BMVEXvmtHyp9jxoNXyqtnvmtHvltDyqtnyqtnvltDyp9jyp9jyp9jyp9jvltDyp9jyp9jyp9jvltDyp9jyp9jyp9jvltDyp9jxoNXxoNXyp9jvltDyp9jyp9jvltDyp9jvltDyp9jvltDyp9jyp9jyp9jyp9jyqtnvltD///+KYcpOAAAAJ3RSTlMAAAAA+vRUfutPpXGC8mh6Wf5vc1/iTtzeXuxYZvdt8GD2UH9rZFH2/H2ZAAAAAWJLR0QovbC1sgAAAAd0SU1FB+QEFwowFLFEXYoAAAEVSURBVDjLjdTZeoIwEAXgBLAoSlVcu1h35/3fUFkSziy05S6Z/4OEnIxzGRGN3jw8CQ7yV5ky1zCi8WTAFU35Bal7pqYrQjk6mhkuMnDlu3I9A0c0Fw4YuRwGC+aQ5S7F4RQczhepS3FiWUXHmK8dm1p1jrPW4eR43TjBOuf5GhPFgsPCZpsoFh3CcqdY79inFANnwsDQGTAy5hTsGXcCAhPO74Htvf/f+z6GnFjf55ft9H6/LWf8v8OPdvZ5VNIhg10fT9yxhGBezhd0PEgsf+11VXmuT0Hk+RqcjKW8H1XrVHrlfTvcaqdDru/vPWX9oBjqB5uH08zqL6XT7I9+1cfy1/4H6TX7aaaY3Z9bmPsBF/r9ExsRdgos58R+AAAAAElFTkSuQmCC';
+$gnb-horizontal-depth1-font: $font-lg;
+$gnb-horizontal-depth1-color--active: map-get($colors, 'white');
+$gnb-horizontal-depth1-color: map-get($colors, 'gray');
+$gnb-horizontal-depth1-width: auto;
+$gnb-horizontal-depth1-height: $header-horizontal-height - .8;
+$gnb-horizontal-depth1-borderColor-active: map-get($colors, 'bordergray');
+$gnb-horizontal-depth1-border-width-active: 0.1;
+$gnb-horizontal-depth1-border-active: ($gnb-horizontal-depth1-border-width-active * 10px) solid $gnb-horizontal-depth1-borderColor-active;
+$gnb-horizontal-depth1-borderColor: map-get($colors, 'borderblack');
+$gnb-horizontal-depth1-border-width: 0.1;
+$gnb-horizontal-depth1-border: ($gnb-horizontal-depth1-border-width * 10px) solid $gnb-horizontal-depth1-borderColor;
+$gnb-horizontal-depth1-bgColor--active: rgba(map-get($colors, 'navy'), .5);
+$gnb-horizontal-depth1-bgColor: none;
+$gnb-horizontal-depth1-textAlign: center;
+$gnb-horizontal-depth1-ico-width: 2.4;
+$gnb-horizontal-depth1-ico-height: 2.4;
+$gnb-horizontal-depth1-ico-interval: 1.6;
+$gnb-horizontal-depth1-ico-style: horizontal;
+$gnb-horizontal-depth1-padding-horizontal: 1.5;
+$gnb-horizontal-depth1-interval-vertical: 2.5;
+$gnb-horizontal-depth1-font-weight: 'b'!default;
+$gnb-horizontal-depth1-states: ':has([aria-current])';
+$gnb-horizontal-depth2-font: $font-md;
+$gnb-horizontal-depth2-color: map-get($colors, 'gray');
+$gnb-horizontal-depth2-color--active: map-get($colors, 'point');
+$gnb-horizontal-depth2-width: $gnb-horizontal-depth1-width; // 기본값 $gnb-horizontal-depth1-width
+$gnb-horizontal-depth2-height: 3.7; // $gnb-horizontal-depth2-font * $base-lineHeight
+$gnb-horizontal-depth2-lineHeight: $base-lineHeight;
+$gnb-horizontal-depth2-borderColor-active: '';
+$gnb-horizontal-depth2-borderColor: '';
+$gnb-horizontal-depth2-border-width-active: 0.1;
+$gnb-horizontal-depth2-border-width: 0.1;
+$gnb-horizontal-depth2-border--active: ($gnb-horizontal-depth2-border-width-active * 10px) solid $gnb-horizontal-depth2-borderColor-active;
+$gnb-horizontal-depth2-border: ($gnb-horizontal-depth2-border-width * 10px) solid $gnb-horizontal-depth2-borderColor;
+$gnb-horizontal-depth2-bgColor--active: '';
+$gnb-horizontal-depth2-bgColor: null;
+$gnb-horizontal-depth2-textAlign: center;
+$gnb-horizontal-depth2-padding-horizontal: 0;
+$gnb-horizontal-depth2-padding-vertical: 1.7;
+$gnb-horizontal-depth2-link-padding-vertical: .7;
+$gnb-horizontal-depth2-link-padding-horizontal: .5;
+$gnb-horizontal-depth2-transition: inherit;
+
+
+$gnb-vertical-breakpoint: 'sm';
+$gnb-vertical-close-width: 3.9;
+$gnb-vertical-close-height: 3.9;
+$gnb-vertical-close-btn-svg: 'data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAAnCAMAAAC7faEHAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAe1BMVEXvmtHyp9jxoNXyqtnvmtHvltDyqtnyqtnvltDyp9jyp9jyp9jyp9jvltDyp9jyp9jyp9jvltDyp9jyp9jyp9jvltDyp9jxoNXxoNXyp9jvltDyp9jyp9jvltDyp9jvltDyp9jvltDyp9jyp9jyp9jyp9jyqtnvltD///+KYcpOAAAAJ3RSTlMAAAAA+vRUfutPpXGC8mh6Wf5vc1/iTtzeXuxYZvdt8GD2UH9rZFH2/H2ZAAAAAWJLR0QovbC1sgAAAAd0SU1FB+QEFwowFLFEXYoAAAEVSURBVDjLjdTZeoIwEAXgBLAoSlVcu1h35/3fUFkSziy05S6Z/4OEnIxzGRGN3jw8CQ7yV5ky1zCi8WTAFU35Bal7pqYrQjk6mhkuMnDlu3I9A0c0Fw4YuRwGC+aQ5S7F4RQczhepS3FiWUXHmK8dm1p1jrPW4eR43TjBOuf5GhPFgsPCZpsoFh3CcqdY79inFANnwsDQGTAy5hTsGXcCAhPO74Htvf/f+z6GnFjf55ft9H6/LWf8v8OPdvZ5VNIhg10fT9yxhGBezhd0PEgsf+11VXmuT0Hk+RqcjKW8H1XrVHrlfTvcaqdDru/vPWX9oBjqB5uH08zqL6XT7I9+1cfy1/4H6TX7aaaY3Z9bmPsBF/r9ExsRdgos58R+AAAAAElFTkSuQmCC';
+$gnb-vertical-depth1-font: $font-md;
+$gnb-vertical-depth1-color-active: map-get($colors, 'point');
+$gnb-vertical-depth1-color: map-get($colors, 'gray');
+$gnb-vertical-depth1-width: $header-vertical-width;
+$gnb-vertical-depth1-height: 5;
+$gnb-vertical-depth1-borderColor-active: map-get($colors, 'bordergray');
+$gnb-vertical-depth1-border-width-active: 0.1;
+$gnb-vertical-depth1-border-active: ($gnb-vertical-depth1-border-width-active * 10px) solid $gnb-vertical-depth1-borderColor-active;
+$gnb-vertical-depth1-borderColor: map-get($colors, 'bordergray');
+$gnb-vertical-depth1-border-width: 0.1;
+$gnb-vertical-depth1-border: ($gnb-vertical-depth1-border-width * 10px) solid $gnb-vertical-depth1-borderColor;
+$gnb-vertical-depth1-bgColor-active: '';
+$gnb-vertical-depth1-bgColor: map-get($colors, 'trans');
+$gnb-vertical-depth1-container-bgColor: map-get($colors, 'trans');
+$gnb-vertical-depth1-container-bgColor-active: linear-gradient(to bottom, map-get($colors, 'depth1ContainerActiveStart'), map-get($colors, 'depth1ContainerActiveEnd'));
+$gnb-vertical-depth1-textAlign: left;
+$gnb-vertical-depth1-padding-horizontal: 2.2;
+$gnb-vertical-depth1-interval-vertical: 2.5;
+$gnb-vertical-depth1-ico-width: 3;
+$gnb-vertical-depth1-ico-height: 3;
+$gnb-vertical-depth1-ico-interval-vertical: 0;
+$gnb-vertical-depth1-ico-interval-horizontal: 1.5;
+$gnb-vertical-depth2-font: $font-md;
+$gnb-vertical-depth2-color-active: map-get($colors, 'point');
+$gnb-vertical-depth2-color: map-get($colors, 'gray');
+$gnb-vertical-depth2-width: $gnb-vertical-depth1-width;
+$gnb-vertical-depth2-height: $gnb-vertical-depth2-font * $base-lineHeight;
+$gnb-vertical-depth2-lineHeight: $base-lineHeight;
+$gnb-vertical-depth2-borderColor-active: '';
+$gnb-vertical-depth2-borderColor: '';
+$gnb-vertical-depth2-border-width-active: 0.1;
+$gnb-vertical-depth2-border-width: 0.1;
+$gnb-vertical-depth2-border-active: ($gnb-vertical-depth2-border-width-active * 10px) solid $gnb-vertical-depth2-borderColor-active;
+$gnb-vertical-depth2-border: ($gnb-vertical-depth2-border-width * 10px) solid $gnb-vertical-depth2-borderColor;
+$gnb-vertical-depth2-bgColor-active: '';
+$gnb-vertical-depth2-bgColor: '';
+$gnb-vertical-depth2-textAlign: left;
+$gnb-vertical-depth2-padding-horizontal: 8;
+$gnb-vertical-depth2-padding-vertical: 0;
+$gnb-vertical-depth2-link-padding-vertical: 1;
+$gnb-vertical-depth2-link-padding-horizontal: 2;
+$gnb-vertical-depth2-transition: $base-transition;
+// gnb end
+
+// table start
+$table-font: $font-md;
+$table-thead-color: map-get($colors, "point");
+$table-thead-borderColor: map-get($colors, "bordergray");
+$table-thead-border-width: 0.1;
+$table-thead-border: ($table-thead-border-width * 10px) solid $table-thead-borderColor;
+// $table-thead-bgColor: rgba(map-get($colors, "bgblue"), .3);
+$table-thead-bgColor: map-get($colors, "tableth");
+$table-tbody-borderColor: map-get($colors, "bordergray");
+$table-tbody-border-width: 0.1;
+$table-tbody-border: ($table-tbody-border-width * 10px) solid $table-tbody-borderColor;
+$table-tbody-bgColor-active: map-get($colors, "none");
+$table-th-font: $font-md;
+$table-th-height: 3.7;
+$table-th-bgColor: $table-thead-bgColor;
+$table-td-font: $table-font;
+$table-td-height: 3.6;
+$table-td-color: map-get($colors, "gray");
+$table-td-bgColor: map-get($colors, "none");
+$table-td-textAlign: center;
+$table-td-padding-horizontal: 0;
+$table-td-padding-vertical: .5;
+$table-border-top: $table-thead-border;
+$table-border-bottom: $table-thead-border;
+$table-minWidth: 60;
+$table-notice-width: 2.4;
+$table-notice-height: 2.4;
+$table-notice-svg: 'ico_notice.svg';
+$table-new-width: 4.8;
+$table-new-height: 2;
+$table-new-font: $font-sm-s;
+$table-new-color: map-get($colors, "white");
+$table-new-bgColor: map-get($colors, "red");
+$table-title-bgColor: map-get($colors, 'tableth');
+// table end
+
+// content start
+$content-breakpoint: 'xs';
+$content-height-style: 'max';
+$content-interval-top: 0; // 프로젝트 특성상 제거
+$content-interval-bottom: 3.2;
+$content-title-interval-bottom: 2.8;
+$content-padding-horizontal: 3;
+$content-padding-vertical: 2;
+$content-title-font: $font-xl;
+$content-title-padding-horizontal: 1;
+$content-title-interval-vertical: 2;
+$content-title-bgColor: map-get($colors, "bggray");
+$content-overview-font: $font-md;
+$section-title-font: $font-lg;
+$section-title-interval-vertical: 1.5;
+$section-overview-font: $font-md;
+$section-overview-color: map-get($colors, "gray");
+$section-padding-top: 1;
+$section-interval-vertical: 8;
+// content end
+
+// footer start
+$logo-width: 22.3;
+$logo-height: 2.9;
+$footer-height: 0;
+$footer-color: map-get($colors, 'black');
+$footer-logo-interval-horizontal: 9.2;
+$footer-letterSpacing: -0.025em;
+// footer end
+
+// login start
+$login-font: $font-md; 
+$login-bgColor: map-get($colors, "bg");
+$login-title-font: $font-md;
+$login-title-interval-vertical: 6;
+$login-box-width: 55;
+$login-box-height: 50;
+$login-box-bgColor: map-get($colors, "white");
+$login-box-padding-horizontal: 5.6;
+$login-box-padding-vertical: 5.6;
+$login-box-border-radius: $base-border-radius;
+$login-box-shadow: $base-shadow;
+$login-sns-borderColor: map-get($colors, "bordergray");
+$login-sns-border-radius: $base-border-radius;
+$login-sns-ico-width: 3.4;
+$login-sns-ico-interval-horizontal: 2;
+// login end
+
+//search start
+$search-breakpoint: 'xs';
+$search-height: 10;
+$search-input-width: 45.2;
+$search-content-interval-vertical: 2.3;
+$search-interval-horizontal: 1.4;
+$search-interval-vertical: 4;
+$search-expand-ico-width: 6.8;
+$search-expand-ico-height: 1.8;
+$search-transition: 0.5s ease-in-out;
+$search-select-width: 14;
+$search-input-font: map-get($inputs, 'normal-font');
+$search-input-width: 45;
+$search-button-width: 9;
+$search-date-width: 17;
+$search-radio-interval-horizontal: 0.8;
+$container-border-radius: 1;
+$container-border-radius-active: 1.6;
+// search end
+ 
+$dashboard-font-vh: 1.2;
+$dashboard-vw: 1920; // 디자인 기준
+$dashboard-vh: 1080; // 디자인 기준
+$dashboard-col: 8;
+$dashboard-row: 8; 
+$dashboard-gap: 2.5;
+$dashboard-interval-verticals: $content-interval-top+$content-interval-bottom + 5.4; // 4.4 -> datetime
+// $dashboard-grid-width: ((($dashboard-vw / 10) - ($dashboard-gap * ($dashboard-col - 1)) - ($padding-horizontal * 2)) / $dashboard-col) - 2; // 상하스크롤 너비 때문에 2 빼야함
+$dashboard-grid-width: 8%;
+$dashboard-grid-height: (($dashboard-vh / 10) - $dashboard-interval-verticals - ($dashboard-gap * ($dashboard-row - 1))) / $dashboard-row;
+$dashboard-min-ratio-horizontal: 16;
+$dashboard-min-ratio-vertical: 9;
+
+$content-bgColor: $base-bgColor;
+
+$danger-bgColor: linear-gradient(to right, rgba(map-get($colors, 'danger'), .5), rgba(map-get($colors, 'danger'), 0));
+
+$container-header-bgColor: map-get($colors, 'opacityblack3');
+$container-header-bgColor-active: $danger-bgColor, $container-header-bgColor;
+
+$layer-popup-width: 64;
+$layer-popup-width--large: 100;
+$layer-popup-confirm-width: $layer-popup-width - 14;
+$layer-popup-header-bgColor: linear-gradient(to bottom, map-get($colors, 'gradientheaderstart'), map-get($colors, 'gradientheaderend'));
+$layer-popup-header-bgColor-active: $danger-bgColor, $layer-popup-header-bgColor;
+$layer-popup-header-height: 5.6;
+
+$gradient-white: linear-gradient(to bottom, map-get($colors, 'gradientwhitestart'), map-get($colors, 'gradientwhiteend'));
+$gradient-btnblue: linear-gradient(to bottom, map-get($colors, 'gradientbtnbluestart'), map-get($colors, 'gradientbtnblueend'));
+$gradient-gray: linear-gradient(to bottom, map-get($colors, 'gradientgraystart'), map-get($colors, 'gradientgrayend'));
+$gradient-green: linear-gradient(to bottom, map-get($colors, 'gradientgreenstart'), map-get($colors, 'gradientgreenend'));
+$gradient-red: linear-gradient(to bottom, map-get($colors, 'gradientredstart'), map-get($colors, 'gradientredend'));
+$gradient-btnblue-reverse: linear-gradient(to top, map-get($colors, 'gradientbtnbluestart'), map-get($colors, 'gradientbtnblueend'));
+
+$scrollbar-width: .6;
+$scrollbar-color: map-get($colors, 'trans');
+$scrollbar-track-color: map-get($colors, 'trans');
+$scrollbar-thumb-color: rgba(map-get($colors, 'white'), .5);
+$scrollbar-border-radius: .3;
+$scrollbar-interval-vertical: 0.3;
+$scrollbar-interval-horizontal: 0.3;
+
+:root {
+    $colors: ()!default!global;
+    $base-active-class: ''!default!global;
+    $btns: ()!default!global;
+    $header-style: ''!default!global;
+    $chartColors: 'blue', 'green', 'yellow', 'red', 'sky', 'purple', 'gray', 'blue2', 'sky2', 'yellow2';
+
+    $normalColors: 'niddle';
+    
+    // key:value, (띄어쓰기 금지)
+    // --imgRoute: #{"/" + $base-absolute-asset-path + "/" + $base-image-path + "/"}; // 절대경로
+    // --imgRoute: #{$base-asset-path + "/" + $base-absolute-asset-path + "/" + $base-image-path + "/"}; // 상대경로
+
+    --pointColor:#{map-get($colors, 'point')};
+    --activeClass:#{$base-active-class};
+    --buttonActiveClass:#{map-get($btns, 'active-class')};
+    --line-color-01:#{map-get($colors, 'linegreen2')};
+    --line-color-02:#{map-get($colors, 'linegreen')};
+    --line-color-03:#{map-get($colors, 'lineyellow')};
+    --line-color-04:#{map-get($colors, 'linered')};
+    --line-color-05:#{map-get($colors, 'linegreen')};
+
+    @each $value in $chartColors {
+
+        --#{$value}: #{map-get($colors,'chart#{$value}start')};
+        --#{$value}end: #{map-get($colors,'chart#{$value}end')};
+    }
+
+    @each $value in $normalColors {
+
+        --#{$value}start: #{map-get($colors,'gradient#{$value}start')};
+        --#{$value}end: #{map-get($colors,'gradient#{$value}end')};
+    }
+
+    --headerStyle:#{$header-style};
+    --dashboardFontRate:#{$dashboard-font-vh};
+}

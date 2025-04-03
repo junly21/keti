@@ -1,0 +1,555 @@
+@import '../../../../../_assets/scss/containers/_content'; // %content
+
+%wrapperStyle {
+    display: grid;
+
+    flex: 1;
+    overflow: hidden;
+    gap: em(2);
+
+}
+
+%videoWrapper {
+    @extend %flex--row-align-center;
+    
+    overflow: hidden;
+    // gap: 1em;
+    max-height: 80%;
+    margin-top: auto;
+    margin-bottom: auto;
+
+    .video-container {
+        &-01 {
+            width: calc(calc(100% - 1em) / 3);
+
+            overflow: hidden;
+            margin-right: 1em;
+            // video {
+            //     position: absolute;
+            //     top: 50%;
+            //     left: 50%;
+            //     transform: translate(-50%, -50%);
+            // }
+        }
+
+        &-02 {
+            flex: 1;
+        }
+    }
+}
+
+%networkStyle {
+    
+    @extend %flex--center;
+            
+    flex: 1;
+    position: relative;
+}
+
+%networkWrapperStyle {
+    
+    @extend %flex--col;
+
+    grid-column: span 2;
+    
+    border: 1px solid #0076c9;
+}
+
+%sectionStyle {
+
+    &1 {
+        $contentIntervalTop: 4.4!global;
+        
+        background-color: rgba(color('navy'), .5);
+        padding: em($contentIntervalTop) em(3.2) em(2);
+    }
+
+    &2 {
+        background-color: rgba(#000, .2);
+        padding: em(1.6);
+    }
+
+    &3 {            
+        flex: 1;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(8, 1fr);
+        row-gap: em(1.6);
+        border: 1px solid #0076c9;
+
+        @at-root .keti-rate & {
+            align-items: center;
+        }
+
+        section {
+            grid-row: span 7;
+
+            @at-root .keti-rate & {
+                height: 70%;
+            }
+
+            &:first-of-type {
+                grid-column: span 3;
+            }
+
+            &:not(:first-of-type) {
+                grid-column: span 2;
+            }
+        }
+    }
+
+    &4 {
+        flex: 1;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(16, 1fr);
+        row-gap: em(1.6);
+        border: 1px solid #0076c9;
+        grid-column: span 1;
+        grid-row: span 2;
+
+        section {
+            grid-row: span 15;
+        }
+    }
+
+    &5 { 
+        flex: 1;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(8, 1fr);
+        row-gap: em(1.6);
+        border: 1px solid #0076c9;
+
+        section {
+            grid-row: span 7;
+
+            // &:first-of-type {
+            //     grid-column: span 3;
+            // }
+
+            // &:not(:first-of-type) {
+            //     grid-column: span 2;
+            // }
+
+            canvas {
+                // width: 100%;
+                // height: 100%;
+            }
+        }
+    }
+}
+
+.content {
+    @extend %content;
+    @extend %flex--col;
+
+    position: relative;
+    overflow: hidden;
+
+    & > section {
+        @extend %sectionStyle1;
+
+        & > section {
+            @extend %sectionStyle2;
+    
+            &:has([id*=heatmap]) {
+                position: relative;
+
+                h3 {
+                    $font: $font-lg;
+                    
+                    position: absolute;
+                    top: em(1.6, $font);
+                    height: em(1.6, $font);
+                }
+            }
+        }
+    }
+
+    h2 {
+        // @extend %sr-only; // 231012 파이썬에서 적용 안됨
+        display: none;
+    }
+
+    h3 {
+        $font: $font-lg;
+
+        @extend %font-b;
+        @extend %flex--row-align-center;
+
+        font-size: em($font);
+
+        gap: em(.8, $font);
+        
+        grid-column: span 5;
+        grid-row: span 1;
+
+        &::before {
+            @extend %ico-bg-base;
+
+            content: '';
+            min-width: em(1, $font);
+            height: em(.8, $font);
+            background-image: image('ico_title.svg');
+        }
+    
+    }
+
+    &-01 {
+        // 기본
+
+        @extend %wrapperStyle;
+
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+
+        &-01 {
+            @extend %sectionStyle4;
+
+            &-01 {
+                position: relative;
+            }
+        }
+
+        &-02 {
+            @extend %sectionStyle5;
+        }
+
+        &-03 {
+            @extend %sectionStyle5;
+        }
+    }
+
+    &-02 {
+        // 개별
+
+        $width: 87;
+        $height: 42;
+        
+        padding: 0!important;
+
+        max-width: px($width);
+        width: px($width);
+        min-width: px($width);
+        max-height: px($height);
+        height: px($height);
+        min-height: px($height);
+
+        @at-root :is(body, .content):has(#{&}) {
+            @extend .content-02;
+        }
+
+        .content-01 {
+            &-02, &-03 {
+                height: 100%;
+            }
+        }
+    }
+
+    &-03 {
+        @extend %wrapperStyle;
+
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+
+        &:has(.active) {
+            .content-03-01 {
+                grid-column: span 4;
+                grid-row: span 2;
+
+                &-01 {
+                    display: none;
+                }
+
+                & ~ *{
+                    display: none;
+                }
+            }
+        }
+
+        &-01 {
+            @extend %networkWrapperStyle;
+    
+            &-01 {
+                @extend %networkStyle;
+
+                & > div {
+                    // @extend %heatmapRotate;
+                }
+            }
+
+            &-02 {
+                @extend %flex--center;
+
+                width: 100%;
+                // height: min(100%, 70vh);
+                height: 100%;
+                overflow: hidden;
+
+                &:has(+button:not(.active)) {
+                    position: absolute;
+                    display: block;
+                    top: 0;
+                    left: 0;
+                    opacity: 0;
+                    z-index: -1;
+                    width: 200vw;
+                    height: 200vh;
+                }
+            }
+
+            button {
+                $size: 3;
+                
+                @extend %ico-bg-base;
+
+                display: inline-flex;
+                margin-left: auto;
+                margin-top: auto;
+                width: em($size);
+                height: em($size);
+                overflow: hidden;
+                color: color('trans');
+                transition: $base-transition;
+                
+            }
+
+            &:is(:hover) {
+
+                button {
+    
+                    &.active {
+                        background-image: image('ico/minimize.svg');
+                    }
+    
+                    &:not(.active) {
+                        background-image: image('ico/full.svg');
+                    }
+                }
+
+            }
+        }
+
+        &-02 {
+            @extend %networkWrapperStyle;
+            grid-row: 2 / span 1;
+    
+            &-01 {
+                @extend %networkStyle;
+            }
+        }
+
+        &-03, &-04, &-05, &-06 {
+            @extend %sectionStyle5;
+        }
+    }
+
+    &-04 {
+        // 기본
+
+        @extend %wrapperStyle;
+
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+
+        &-01 {
+            @extend %sectionStyle3;
+
+            // grid-template-columns: repeat(1, 1fr);
+            grid-row: span 1;
+
+            section {
+                &:first-of-type {
+                    grid-column: span 3;
+                }
+                &:last-of-type {
+                    grid-column: span 2;
+                }
+            }
+
+            &-01 {
+                @extend %flex--center;
+
+                position: relative;
+            }
+        }
+    }
+
+    &-05 {
+        
+        @extend %wrapperStyle;
+
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+
+        @at-root .keti-rate & {
+            grid-template-columns: repeat(8, 1fr);
+        }
+
+        &-01 {
+            @extend %networkWrapperStyle;
+            grid-column: span 3;
+
+            grid-row: span 3;
+            row-gap: em(1.6);
+    
+            &-01 {
+                @extend %videoWrapper;
+            }
+
+            @at-root .keti-rate & {
+                grid-column: span 4;
+                grid-row: span 2;
+            }
+        }
+
+        &-02 {
+            @extend %networkWrapperStyle;
+            grid-column: span 3;
+
+            grid-row: span 3;
+            row-gap: em(1.6);
+    
+            &-01 {
+                @extend %videoWrapper;
+            }
+
+            @at-root .keti-rate & {
+                grid-column: span 4;
+                grid-row: span 2;
+            }
+        }
+
+        &-03, &-04, &-05, &-06, &-07, &-08 {
+            @extend %sectionStyle5;
+
+            grid-row: span 2;
+
+            section {
+                // padding-left: .5em;
+                // padding-right: .5em;
+            }
+        }
+
+        &-03 {
+            
+
+            @at-root .keti-rate & {
+                grid-row: span 1;
+
+                grid-column: span 4;
+            }
+        }
+        &-06 {
+            
+
+            @at-root .keti-rate & {
+                grid-row: 3 / span 1;
+
+                grid-column: 5 / span 4;
+            }
+        }
+
+        &-04, &-05, &-07, &-08 {           
+            
+
+            @at-root .keti-rate & {
+                grid-row: span 1;
+
+                grid-column: span 2;
+            }
+        }
+    }
+
+    &-06 {
+        $rows: 24;
+        $heatmapRow: 4;
+        @extend %wrapperStyle;        
+
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: repeat($rows, 1fr);
+
+        &-01, &-02 {
+            @extend .content-05-01;
+
+            &-01 {
+                @extend .content-05-01-01;
+            }
+
+            grid-column: span 6;
+            grid-row: span 5;
+        }
+
+        &-03, &-04, &-05, &-06, &-07, &-08 {
+            @extend .content-05-03;
+
+            grid-column: span 2;
+            grid-row: span 3;
+        }
+
+        &-09 {
+            @extend .content-04-01;
+
+            grid-column: span 6;
+            grid-row: span 4;
+
+            &-01 {
+                @extend %flex--center;
+
+                position: relative;
+            }
+        }
+
+        &-10 {
+            @extend .content-03-01;
+            
+            grid-column: span 6;
+            grid-row: span $heatmapRow;
+
+            &-01 {
+                @extend .content-03-01-01;
+            }
+        }
+
+        &-11 {
+            @extend .content-03-01;
+            
+            grid-column: span 6;
+            // grid-row: ($rows - if($heatmapRow != 1,$heatmapRow - 1,0)) / span $heatmapRow;
+            grid-row: ($heatmapRow + 1) / span $heatmapRow;
+
+            &-01 {
+                @extend .content-03-01-01;
+            }
+        }
+
+        &-12, &-13, &-14, &-15 {
+            @extend .content-03-03;
+            grid-column: span 3;
+            grid-row: span $heatmapRow;
+        }
+    }
+
+    &.full {
+        min-height: 100vh;
+    }
+
+    &:not(.full) {
+        min-height: calc(100dvh - 3.875em);
+    }
+
+    @at-root .all & {
+        padding-top: em($content-padding-vertical);
+
+        & > section {
+            padding-top: 1.25em;
+        }
+    }
+}
+
+.keti-rate {
+    width: 1730px;
+    height: 1300px;
+    padding: 0;
+}

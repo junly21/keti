@@ -1,0 +1,5 @@
+@import '../../../../../_assets/scss/components/_pagination'; // %pagination
+
+.pagination {
+    @extend %pagination; 
+}

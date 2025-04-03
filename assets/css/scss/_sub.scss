@@ -1,0 +1,62 @@
+@charset "utf-8";
+/* **************************************************************************** */
+/*	@CreateDate   : 210309                    */
+/*	@ModifyDate   : 211018                    */
+/*	@Description  : scss build                */
+/*	@Author       : 서성원 대리(소울인포테크) */
+/* **************************************************************************** */
+
+@import "variables";
+
+@import 'modules';
+@import 'fonts';
+@import '../../../../_assets/scss/base/_common'; // common 
+@import 'components/gnb'; // from react component
+@import 'components/headerUtils'; // from react component
+@import 'components/button';
+@import 'components/input';
+@import 'components/select';
+@import 'components/table';
+@import 'containers/header'; // from react container
+@import 'containers/body';
+@import 'containers/tabContainer';  // from react container
+@import 'containers/videoContainer'; 
+@import 'containers/modal'; 
+@import "old";
+@import "temp"; 
+
+ 
+#header {    
+}
+
+h1 {
+    font-size: 1em;
+    font-weight: 400; 
+
+    a:link,
+    a:active,
+    a:visited {
+        color: white; 
+    }
+}
+
+strong {
+    // font-weight: 400;
+}
+
+.content-shortcut {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 0;
+
+    &:focus {
+        width: 100%;
+        background-color: color('point');
+        color: color('white');
+        font-size: em(3);
+        line-height: min(15vw, #{em($header-horizontal-height, 3)});
+        text-align: center;
+        z-index: get-zIndex('absolute');
+    } 
+}

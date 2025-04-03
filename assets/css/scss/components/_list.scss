@@ -1,0 +1,255 @@
+$roadColor: #4A5261;
+$borderOuter: 2px solid rgba(#d1deef, .4);
+$borderInner: 1px dashed rgba(#d1deef, .4);
+$borderCenter: 2px solid rgba(#ffff78, .4);
+$laneOrders: (4, 3, 2, 1, 5, 6, 7, 8);
+$borderCenterPsuedo: ':not(:is(:last-child, :first-child))';
+$gradientDirections: (
+    'North' : 'top',
+    'South' : 'bottom',
+    'West' : 'right',
+    'East' : 'left',
+);
+$laneColors: (
+    'green': #02bc77,
+    'yellow': #fff23a,
+    'red': #ff0000,
+);
+
+%lane {
+
+    &Set {
+        background-color: $roadColor;
+
+        div {
+            // $i: 0;
+            // @each $laneOrder in $laneOrders {
+            //     $i: $i + 1;
+
+            //     &:nth-child(#{$i}) {
+            //         order: $laneOrder;
+            //     }
+            // }
+        }
+
+        .reverse {
+            order: -1;
+
+            & + div {
+                order: -2;
+
+                & + div {
+                    order: -3;
+
+                    & + div {
+                        order: -4;
+
+                        & + div {
+                            order: -5;
+
+                            & + div {
+                                order: -6;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        > :not(.reverse) {
+            input {
+
+            }
+        }
+
+        input {
+            @extend %font-b;
+
+            // font-size: em(2.4);
+            font-size: .75em;
+            display: block;
+            height: 100%;
+            text-align: center;
+        }
+    }
+    
+    &Vertical {
+        @extend %laneSet;
+        
+        @extend %flex--row-reverse;
+
+        grid-column: 2 / span 4;
+        border-left: $borderOuter;
+        border-right: $borderOuter;
+
+        div {      
+            
+            &:first-child {
+                border-right: $borderCenter;
+            }
+
+            &#{$borderCenterPsuedo} {
+                border-right: $borderInner;
+            }
+        }
+
+        input {
+            display: block;
+            height: 100%;
+            text-align: center;
+        }
+    }
+
+    &Horizontal {
+        @extend %laneSet;
+        @extend %flex--col-reverse;
+
+        grid-row: 2 / span 4;
+        border-top: $borderOuter;
+        border-bottom: $borderOuter;
+
+        div {
+            flex: 1;  
+
+            &:first-child {
+                border-bottom: $borderCenter;
+            }         
+
+            &#{$borderCenterPsuedo} {
+                border-bottom: $borderInner;
+            }
+        }
+    }
+
+    @each $EWNS, $direction in $gradientDirections {
+
+        &#{$EWNS} {
+
+            @each $colorName, $color in $laneColors {
+                .#{$colorName} {
+                    background-image: linear-gradient(to #{$direction}, rgba($color, 0.5), rgba($color, 0));
+                }
+
+            }
+        }
+    }
+}
+
+.junction {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+
+    h4 {
+        @extend %font-b;
+        @extend %flex--col-center;
+
+        font-size: em(2);
+        grid-column: 2/ span 4;
+        grid-row: 2 / span 4;
+        background-color: $roadColor;
+    }
+
+    div {
+        position: relative;
+    }
+
+    label {
+        @extend %sr-only;
+    }
+
+    input {
+        width: 100%;
+        outline: none;
+        color: color('white');
+        background-color: color('trans');
+    }
+
+    // 만년사거리
+    &1 {
+        @extend .junction;
+
+        $ids: (
+            'north-06',
+            'north-15',
+            'south-05',
+        );
+
+        @each $id in $ids {
+            :has( > [id*=#{$id}]) {
+                display: none;
+            }
+        }
+    }
+
+    // 정부청사사거리
+    &2 {
+        @extend .junction;
+
+        $ids: (
+            'north-14',
+            'north-15',
+            'south-05',
+            'west-05',
+            'west-15',
+            'east-05',
+            'east-15',
+        );
+
+        @each $id in $ids {
+            :has( > [id*=#{$id}]) {
+                display: none;
+            }
+        }
+    }
+}
+
+.lane {
+    &-north {
+        @extend %laneVertical;
+        @extend %laneNorth;
+    }
+
+    &-south {
+        @extend %laneVertical;
+        @extend %laneSouth;
+    }
+
+    &-west {
+        @extend %laneHorizontal;
+        @extend %laneWest;
+    }
+
+    &-east {
+        @extend %laneHorizontal;
+        @extend %laneEast;
+    }
+}
+
+.lnb {
+    $contentIntervalTop: 4.4!global;
+
+    @extend %flex--row-align-center;
+
+    gap: em($font-md);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: em($contentIntervalTop);
+
+    ul {
+        @extend %flex--row-align-center;
+    }
+}
+.index {
+    @extend %flex--col;
+
+    gap: 1em;
+
+    a {
+        &:hover {
+            color: color('point');
+        }
+    }
+}

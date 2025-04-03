@@ -1,0 +1,18 @@
+@charset 'utf-8';
+
+// ****************************************************************************
+//	@CreateDate   : 210401                    
+//	@Description  : scss build                
+//	@Author       : 서성원 대리(소울인포테크)
+// ****************************************************************************
+
+@import 'variables';
+@import 'variablesForJs';
+@import 'modules';
+@import 'base'; 
+@import 'fonts';
+
+@import 'components'; // from react component 
+@import 'containers'; // from react container 
+
+  

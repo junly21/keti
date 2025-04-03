@@ -1,0 +1,112 @@
+
+
+.layer {
+    $responsive: 'sm';
+
+    &-pop {
+        @extend %flex--center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: color('dimmed');  
+        z-index: get-zIndex('popup');
+        display: none;
+        opacity: 0;
+        transition: $base-transition;
+
+        &.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        &-wrapper {
+            position: relative;
+
+            color: $layer-color;
+            width: em($layer-width);
+            height: em($layer-height);
+            background: $layer-bgColor;  
+
+            @include mq($from: $responsive) {
+                max-height: calc(100% - 2em);
+                max-width: calc(100% - 2em);
+            }
+
+            @include mq($until: $responsive) {
+                max-height: 90%;
+                max-width: 100% - ($inner-m-padding-horizontal * 2);
+            }
+        }
+
+        &-container {
+            height: 100%;
+        }
+
+        h1 {
+            @extend %flex--center;
+            padding: 0 px($base-clickable-minHeight);
+
+            font-size: em($layer-title-font);
+            height: em($layer-title-height, $layer-title-font);
+            background: $layer-title-bgColor;
+            min-height: px($base-clickable-minHeight);
+
+            border-bottom: $base-border;
+        }
+
+        [aria-label=close-popup] {
+            @extend %btn;
+            @extend %flex--center;
+            @extend %clickable-ico;
+
+            font-size: em($layer-title-font * 2);
+
+            color: color('gray');
+
+            text-align: center;
+            width: em($layer-title-height, $layer-title-font * 2);
+            height: em($layer-title-height, $layer-title-font * 2);
+
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            i {
+                display: block;
+            }
+        }
+
+        &-content {
+            @extend %flex--col-between;
+
+            font-size: em($layer-content-font);
+            height: calc(100% - #{em($layer-title-height, $layer-content-font)});
+            max-height: calc(100% - #{px($base-clickable-minHeight)});
+            padding: em(1.8);
+
+            & > * {
+                overflow-y: auto;
+            }
+
+            header {
+                height: em(20, $layer-content-font);
+                max-height: 45%;
+
+                p {
+                    &:not(:last-child) {
+                        margin-bottom: em(1.8 - overlapMargin($base-lineHeight, $layer-content-font), $layer-content-font);
+                    }
+                }
+            }
+
+            section {
+                height: calc(100% - #{em(20, $layer-content-font)});
+                padding: em(3 - overlapMargin($base-lineHeight, $layer-content-font), $layer-content-font) em(2, $layer-content-font);
+                min-height: 45%;
+                background: $layer-content-section-bgColor;
+            }
+        }
+    }
+}

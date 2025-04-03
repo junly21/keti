@@ -1,0 +1,89 @@
+@import '../../../../../_assets/scss/components/_gnb'; // %gnb
+
+%depth1psuedo {
+    
+    width: em(1);
+    height: em(1);
+    position: absolute;
+    bottom: 0;
+    background: image('ico_gnb_depth1_active.svg') center no-repeat;
+    background-size: 100%;
+}
+
+#gnb {
+    @extend %flex--center; 
+
+    padding-top: em(.8);
+
+    .depth1 {
+
+        @extend %flex--row-between;
+        @extend %gnb-#{$gnb-nav-style}-depth1-whole;
+        @extend %gnb-#{$gnb-nav-style}-depth1-ico;
+        @extend %gnb-ico-#{$gnb-ico-style};
+
+        & > li {
+
+            &:has(#{$gnb--active-attr}) {
+                position: relative;
+            }
+
+            &:is(#{$gnb-horizontal-depth1-states}) {
+
+                &::before {
+                    @extend %depth1psuedo;
+                    content: '';
+                    left: -(em(1)); 
+                }
+
+                &::after {
+                    @extend %depth1psuedo;
+                    content: '';
+                    right: -(em(1));
+                    transform: rotateY(180deg);
+                }
+            }
+
+            & > a {
+                
+                border-top-left-radius: em(1);
+                border-top-right-radius: em(1);
+
+                &#{$gnb--active-attr} {
+                }
+
+                &:not(#{$gnb--active-attr}) {
+                    span {
+                        @extend %sr-only;
+                    }
+                }
+
+                em {
+                    font-style: normal;
+                }
+
+                &::before {
+                    background-size: contain;
+                }
+
+                &:active,
+                &:focus,
+                &:hover {
+                }
+
+                &:not(.#{$base-active-class}),
+                &:not(:focus),
+                &:not(:active),
+                &:not(:hover) {
+                    &::before {
+                        opacity: .7;
+                    }
+                }
+            }
+        }
+    }
+
+    .depth2 {
+        @extend %gnb-#{$gnb-nav-style}-depth2-whole;
+    }
+}

@@ -1,0 +1,54 @@
+$heatmapClass: '.heatmap-canvas';
+$networkClass: '.network';
+$heatmapClasses: $heatmapClass, $networkClass;
+$nots: '#content-03-01-02';
+
+%heatmap {
+    &Height {
+        $height: calc(calc(100vw - (calc(2em + 1em + max(2em, 1.6666666667vw)) * 2) - 1.25em) / 2 * 0.53405714964761366); 
+        height: $height;
+
+        &2 {
+            $per: 8;
+            width: $per * 10%;
+            // height: calc(#{$height} * #{$per} * .1);
+        }
+    }
+
+    &Rotate {
+        // 231129 postCSS로 해결 불가능하여 플레이스홀더 처리로 변경
+
+        overflow: hidden;
+        transform: rotateX(180deg);
+
+    }
+}
+
+canvas {
+    display: block;
+    position: relative;
+    height: 100%;
+    max-height: 100%;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    transition: .2s ease-out;
+}
+
+// :has(>:is(#{$heatmapClasses})) {
+:has(>#{$heatmapClass}), :has(>#{$networkClass}) {
+    @extend %heatmapRotate;
+}
+
+#{$heatmapClass} {
+    position: absolute;
+    z-index: 10;
+}
+
+#content-01-01-01 {
+    @extend %heatmapHeight;
+}
+
+div:not(#{$nots}):has( > #{$networkClass}) {
+    @extend %heatmapHeight2;
+}

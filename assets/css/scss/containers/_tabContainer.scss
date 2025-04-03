@@ -1,0 +1,192 @@
+@import '../../../../../_assets/scss/containers/_tabContainer'; // .login .loginbox
+
+[role=tablist] {
+    // background: red;
+}
+
+.tab {
+    display: flex;
+
+    ul {
+        display: inline-flex;
+        background: color('bordergray');
+        padding-top: 1px;
+        padding-right: 1px;
+        padding-left: 1px;
+        gap: 1px;
+    }
+
+    a {
+        $font: $font-sm-l;
+
+        @at-root [role=alertdialog] & {
+            min-width: em(12, $font);
+        }
+
+        @extend %btn-set;
+
+        font-size: em($font);
+        width: em(16, $font);
+        height: em(4, $font);
+
+        &[aria-selected=true], &.active {
+            background: linear-gradient(to bottom, color('gradienttabletitlestart'), color('gradienttabletitleend'));
+            color: color('white');
+        }
+
+        &:not([aria-selected=true]):not(.active) {
+            background: linear-gradient(to bottom, color('gradientwhitestart'), color('gradientwhiteend'));
+        }
+    }
+}
+.search-condition {
+    @at-root %searchContainerStyle {
+        
+        background: color('tableth');
+        border: $base-border;
+        position: relative;
+        margin-bottom: em(2.4);
+        width: 100%;
+        row-gap: em(1);
+        column-gap: em(3);
+
+        [type=file] {
+            display: none;
+        }
+        
+        .btn--blue {
+            width: 70px;
+            padding: .15rem .5rem .2rem .5rem;
+        }
+
+        .input-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            gap: rem2(1.2);
+
+            & > label {
+
+                &:first-child {
+                    font-size: em($font-sm);
+                    flex-direction: row-reverse;
+                    text-align: right;
+                    word-break: keep-all;
+                    // min-width: em(8, $font-sm);
+                    line-height: 1.2;
+                    margin-bottom: 0;
+                    // padding-left: em(2, $font-sm);
+                }
+            }
+
+            [role=group] {
+                @extend %flex--center;
+                gap: rem2(.6);
+            }
+        }
+
+        .hyphen {
+            margin: 3px 6px 0 4px;
+            font-style: normal;
+        }
+
+        .fold-wrap {
+            height: auto;
+            overflow: hidden;
+        }
+
+        .btn-fold {
+            width: 50px;
+            height: 16px;
+            background-color: #f2f4f7;
+            border-left: 1px solid #d1d6de;
+            border-right: 1px solid #d1d6de;
+            border-bottom: 1px solid #d1d6de;
+            text-align: center;
+            display: block;
+            position: absolute;
+            left: 49%;
+            right: 49%;
+            bottom: -17px;
+        }
+
+        .btn-fold:before {
+            width: 7px;
+            height: 4px;
+            margin: 4px auto;
+            content: "";
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAECAYAAABCxiV9AAAAHUlEQVR42mNgQAKJKbn/GbABkAQM45RAUYBNAoYBZ8UjEdsLbOgAAAAASUVORK5CYII=');
+            display: block;
+        }
+
+        .fold-wrap[style="height: 37px;"]~.btn-fold:before {
+            transform: rotate(-180deg);
+        }
+
+        .custom-control {
+            display: inline-block;
+        }
+
+        .custom-control+.custom-control {
+            margin-left: 10px;
+        }
+
+        .form-com~.btn {
+            height: calc(.9em + 1rem);
+            position: relative;
+            top: -1px;
+        }
+        
+        .btn {
+            height: rem2(3);
+        }
+
+        label {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        [type=radio] {
+            margin-right: rem2(.7);
+        }
+    }
+
+    @extend %searchContainerStyle;
+
+    display: flex;
+    flex-wrap: wrap;
+    padding: em(2);
+
+    &-top {
+        @extend %flex--row-base;
+        row-gap: 5px;
+    }
+
+    &--center {
+        @extend %flex--center;
+        @extend %searchContainerStyle;
+
+        padding: 10px 15px;
+        gap: 15px;
+    }
+
+    .fold-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+
+        padding-right: calc(100% - 1250px);
+
+        &-center {
+            @extend .fold-wrap;
+
+            margin: 0 auto;
+        }
+    }
+
+    .closable-fold {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 5px;
+    }
+}

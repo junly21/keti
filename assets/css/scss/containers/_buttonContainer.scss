@@ -1,0 +1,11 @@
+@import '../../../../../_assets/scss/containers/_buttonContainer'; // .group-btn
+
+.group-btn {
+    &--center {
+        @extend %group-btn--center;
+    }
+
+    &--right {
+        @extend %group-btn--right;
+    }
+}

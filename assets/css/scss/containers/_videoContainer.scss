@@ -1,0 +1,19 @@
+video {
+    display: block;
+    height: 100%;
+    // overflow: hidden;
+    // max-height: 80%;
+
+    @at-root :has(>#{&}) {
+        @extend %flex--center;
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+        background-color: color('gray');
+    }
+
+    @at-root .keti-rate & {
+        // height: em(54.7);
+        height: em(40);
+    }
+}

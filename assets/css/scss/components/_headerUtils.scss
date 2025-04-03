@@ -1,0 +1,198 @@
+@import '../../../../../_assets/scss/components/_headerUtils';
+
+.headerUtils {
+    // @extend %headerUtils-#{$header-style}-daegu;        
+    @extend %flex--row-between;
+    
+    justify-content: flex-end;
+    align-items: center;
+    // flex: 1;
+    width: 20em;
+    column-gap: em(1); // row-gap 오류로 column만 설정
+    height: min-em-vw($header-horizontal-height);
+
+    header {
+        text-align: right;
+
+        &:not(:last-child) {
+            margin-right: em(1.4);
+        }
+
+        h1 {
+            font-size: em($font-sm);
+            font-weight: normal;
+        }
+    }
+
+    &__recent {
+        @extend %flex--center;
+        line-height: 1.2;
+
+        transition: $base-transition;
+        font-size: em($font-xs);
+        color: color('gray'); 
+
+        // margin-left: auto;
+
+        dt {
+            margin-right: 0.2em;
+        }
+    }
+
+    &__user {
+        // @extend %flex--row-between;
+        display: flex;
+
+        font-size: em($font-sm);
+
+        dt {
+            @extend %sr-only;
+        }
+
+        dd {
+            strong {
+                color: color('point');
+            }
+
+            &:not(:last-of-type) {
+                margin-right: em(.5, $font-sm);
+            }
+        }
+    }
+
+    &__nav {
+        @extend %flex;
+
+        $font: $headerUtils-nav-font;
+
+        justify-content: flex-end;
+        align-items: center;
+
+        li {
+
+            %headerUtilsBtn{
+
+                @extend %flex--center;
+
+                font-size: em($font);
+                color: color('white');
+                padding: 0 em(1.4, $font);
+                height: em(2.4, $font);
+                border-radius: em(1.2, $font);
+                background-color: color('borderblack');
+                position: relative;
+            }
+
+            a {
+                @extend %headerUtilsBtn;
+            }
+
+            button {
+                @extend %headerUtilsBtn;
+            }
+
+            &:not(:last-child) {
+                margin-right: em(1.2);
+            }
+        }
+
+        &--ico {
+            @extend %flex--row-between;
+
+            li {
+                &:not(:last-child) {
+                    margin-right: em($headerUtils-horizontal-ico-interval-horizontal);
+                }
+
+                a {
+
+                    @include min-width($headerUtils-horizontal-ico-width);
+                    @include min-height($headerUtils-horizontal-ico-height);
+
+                    color: color('trans');
+                    position: relative;
+                    display: block;
+                    overflow: hidden;
+
+                    &::before {
+                        content: '';
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        z-index: get-zIndex('absolute');
+
+                        background {
+                            position: center;
+                            repeat: no-repeat;
+                            size: 100%;
+                        }
+                    }
+
+                    &.active {
+                        &::after {
+                            content: '';
+                            @include min-width($headerUtils-horizontal-ico-active-width);
+                            @include min-height($headerUtils-horizontal-ico-active-height);
+
+                            display: block;
+                            background: color('danger');
+                            border-radius: 50%;
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            z-index: 2;
+                        }
+                    }
+
+                    &[aria-label=notice] {
+                        &::before {
+                            background-image: image('ico_util__notice.svg');
+                        }
+                    }
+
+                    &[aria-label=mail] {
+                        &::before {
+                            background-image: image('ico_util__mail.svg');
+                        }
+                    }
+
+                    &[aria-label=profile] {
+                        &::before {
+                            background-image: image('ico_util__profile.svg');
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @at-root #header {
+    
+        &.#{$header-active-class} {
+            .headerUtils {
+                &__recent {
+                    @include mq($from: $header-breakpoint) {
+                        width: 0;
+                        height: 0;
+                        opacity: 0;
+                    }
+                }
+    
+                &__nav {
+                    @include mq($from: $header-breakpoint) {
+                        flex-direction: column;
+                    }
+    
+                    li {
+                        @include mq($from: $header-breakpoint) {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
